@@ -1,0 +1,195 @@
+body {
+    text-align: center;
+    line-height: 160%; 
+    font-size: 16px;  
+    margin: 0;  
+    z-index:1;
+    background-color: white
+}
+
+/* The navigation bar */
+.navbar {
+    overflow: hidden;
+    background-color: #0e005e;
+    top: 0; /* Position the navbar at the top of the page */
+    width: 100%; /* Full width */
+    z-index: 999;
+    border-style: solid;
+    border-width: 0px;
+    border-bottom-width: 2px;
+    border-bottom-color: #0e005e;
+}
+
+/* Links inside the navbar */
+.navbar a {
+    display: block;
+    color: #f2f2f2;
+    text-align: center;
+    padding: 7px;
+    text-decoration: none;
+    font-size: 26px;
+    font-weight: bold;
+    font-family: "Open Sans", Consolas, monaco, monospace; 
+}
+  
+/* Change background on mouse-over */
+.navbar a:hover {
+background: white;
+color: #0e005e;
+}
+
+
+/* div.tooltip {	
+    position: absolute;			
+    text-align: center;			
+    padding: 2px;				
+    font: 16px sans-serif;		
+    background: white;	
+    border: solid;
+    border: 2px solid black;		
+    border-radius: 5px;			
+    pointer-events: none;			
+} */
+
+p { font-size: 20px; font-family: "Sans-serif", Georgia, serif;}
+li { font-size: 20px; margin-bottom: 20px; font-family: "Sans-serif", Georgia, serif;}
+
+h1 { font-size: 48px; margin: 40px 10px 30px 10px; font-weight: bold; line-height: 45px; font-family: "Open Sans", Consolas, monaco, monospace;}
+h2 { font-size: 32px; margin: 10px 10px 30px 10px; font-weight: bold; font-family: "Open Sans", Consolas, monaco, monospace;}
+h3 { font-size: 18px; margin: 10px 10px 30px 10px; font-weight: normal; font-family: "Open Sans", Consolas, monaco, monospace;}
+article { text-align: left; width: 90%; margin: 0 auto;}
+
+@media only screen and (min-width: 768px) {
+  article { text-align: left; width: 50%; margin: 0 auto;}
+  h1 { font-size: 52px; margin: 40px 10px 30px 10px; font-weight: bold; line-height: 45px;}
+  h2 { font-size: 36px; margin: 10px 10px 30px 10px; font-weight: bold;}
+  h3 { font-size: 22px; margin: 10px 10px 30px 10px; font-weight: normal;}
+}
+
+a:link.bylineLink { color: #141DFF; text-decoration: none;}
+a:visited.bylineLink { color: #141DFF; }
+a:hover.bylineLink {color: #0e005e; text-decoration: underline;}
+
+/* layout CSS */
+
+.container{
+    display: flex;
+}
+
+.test{
+    margin: auto;
+}
+
+/* ***************** */
+
+/* Heatmap CSS */
+
+.heatmap_axis { font: 16px sans-serif; stroke-width: 0;}
+.heatmap_axis line {stroke-width: 0;}
+
+.square{
+    stroke: black;
+}
+
+.heatmapLabels {
+    text-anchor: middle;
+    alignment-baseline: central;
+    pointer-events: none;
+}
+
+.colorText{    
+    text-anchor: middle;
+    alignment-baseline: central;
+    pointer-events: none;
+    visibility: hidden;
+    font-weight: bold;
+    text-shadow:
+    -1px -1px 4px white,  
+     1px -1px 4px white,
+     -1px 1px 4px white,
+      1px 1px 4px white;
+}
+
+.redText{
+    fill: red;
+    text-shadow:
+    -1px -1px 4px black,  
+     1px -1px 4px black,
+     -1px 1px 4px black,
+      1px 1px 4px black;
+}
+.blueText{
+    fill: blue;
+}
+.yellowText{
+    fill: yellow;
+    text-shadow:
+    -1px -1px 4px black,  
+     1px -1px 4px black,
+     -1px 1px 4px black,
+      1px 1px 4px black;
+}
+.greenText{
+    fill: green;
+}
+
+/* ************************** */
+
+/* Points Timeplot and Pieces Scatterplot CSS */
+
+path{
+    fill: none;
+    stroke: silver;
+}
+.axis { font: 16px sans-serif; fill: silver;}
+.axis text{
+    fill: silver;
+}
+.tick line{
+    stroke: silver;
+}
+
+svg.dark_svg{
+    background-color: #181818;
+}
+
+.redline {
+    fill: none;
+    stroke: red;
+    stroke-width: 3px;
+}
+.blueline {
+    fill: none;
+    stroke: blue;
+    stroke-width: 3px;
+}
+.yellowline {
+    fill: none;
+    stroke: yellow;
+    stroke-width: 3px;
+}
+.greenline {
+    fill: none;
+    stroke: green;
+    stroke-width: 3px;
+}
+.yxline{
+    fill: none;
+    stroke: whitesmoke;
+    stroke-width: 1.5;
+    stroke-dasharray: 10;
+    opacity: 0.5;
+}
+
+.axis_label{
+    fill: silver;
+    font-size: 20px;
+    text-anchor: middle;
+    font-weight: bold;
+}
+
+/* ********************* */
+
+line{
+    stroke-width: 3px;
+}
