@@ -1,18 +1,18 @@
-var game_id = "6258741";
-const circle_radius = 12;
+// var game_id = "6258741";
+// const circle_radius = 12;
 
-// set the dimensions and margins of the graph
-var margin = {top: 30, right: 30, bottom: 30, left: 30},
-width = (window.innerWidth * .33) - margin.left - margin.right,
-height = width,
-    padding = 10;
+// // set the dimensions and margins of the graph
+// var margin = {top: 30, right: 30, bottom: 30, left: 30},
+// width = (window.innerWidth * .33) - margin.left - margin.right,
+// height = width,
+//     padding = 10;
 
-if (screen.width < 600){
-    margin = {top: 30, right: 30, bottom: 70, left: 70},
-    width = screen.width - 40 - margin.left - margin.right,
-    height = screen.width - 40 - margin.top - margin.bottom,
-    padding = 5;
-}
+// if (screen.width < 600){
+//     margin = {top: 30, right: 30, bottom: 70, left: 70},
+//     width = screen.width - 40 - margin.left - margin.right,
+//     height = screen.width - 40 - margin.top - margin.bottom,
+//     padding = 5;
+// }
 
 // append the svg object to the body of the page
 var scatter_svg = d3.select("#scatterplot")
@@ -25,7 +25,8 @@ var scatter_svg = d3.select("#scatterplot")
         //.on("click", animate);
 
 //Read the data
-d3.csv("data/" + game_id + "/moves.csv", function(data) {
+//d3.csv("data/" + game_id + "/moves.csv", function(data) {
+function drawScatterplot(){
 
     redPieces = [];
     redMaterialValues = [];
@@ -93,28 +94,28 @@ d3.csv("data/" + game_id + "/moves.csv", function(data) {
         .attr("id", function(d){ return "redCircle"})
         .attr("cy", function(d) { return y(redMaterialValues[0]) })
         .attr("cx", function(d) { return x(redPieces[0]) })
-        .attr("r", circle_radius)
+        .style("r", circle_radius)
         .style("fill", function(d){return "red"} );
 
     scatter_svg.append("circle")
         .attr("id", function(d){ return "blueCircle"})
         .attr("cy", function(d) { return y(blueMaterialValues[0]) })
         .attr("cx", function(d) { return x(bluePieces[0]) })
-        .attr("r", circle_radius)
+        .style("r", circle_radius)
         .style("fill", function(d){return "blue"} );
 
     scatter_svg.append("circle")
         .attr("id", function(d){ return "yellowCircle"})
         .attr("cy", function(d) { return y(yellowMaterialValues[0]) })
         .attr("cx", function(d) { return x(yellowPieces[0]) })
-        .attr("r", circle_radius)
+        .style("r", circle_radius)
         .style("fill", function(d){return "yellow"} );
 
     scatter_svg.append("circle")
         .attr("id", function(d){ return "greenCircle"})
         .attr("cy", function(d) { return y(greenMaterialValues[0]) })
         .attr("cx", function(d) { return x(greenPieces[0]) })
-        .attr("r", circle_radius)
+        .style("r", circle_radius)
         .style("fill", function(d){return "green"} );
 
     //Container for the gradients
@@ -167,43 +168,182 @@ d3.csv("data/" + game_id + "/moves.csv", function(data) {
     /////////////////////////////////////////
 
     // animate function /////////////////////////
-    function animate(){
+    animateScatterplot = function(duration, delay){
 
-        var duration = 500;
-        var delay = 500;
+        var redFill = 'red';
+        var blueFill = 'blue';
+        var yellowFill = 'yellow';
+        var greenFill = 'green';
+
+        const lastRound = data[data.length-1]["round"];
+        const y_gap = 5;
+        const x_gap = 20;
 
         for (i=0; i<data.length; i++){
 
             d3.select("#scatterplot_move_count").transition().delay(i * delay).text(i);
 
+            // gray out circle if corresponding player resigns or times out, also add notation
+            if ((data[i]['move'] == "R") | (data[i]['move'] == "T")){
+
+                if (data[i]['player'] == 'red'){
+                    if (redFill == 'red'){ // if false, don't add any more text - we already did
+                        scatter_svg.append("text")
+                        .attr("y", y(redMaterialValues[i]) + y_gap)
+                        .attr("x", x(redPieces[i]) + x_gap)
+                        .text("Red resigns in round " + data[i]["round"] + "!")
+                        .style("text-anchor", "start")
+                        .style("visibility", "hidden")
+                        .transition()
+                        .delay(delay * i)
+                        .style("visibility", "visible");
+                    }
+                    redFill = '#b56d5b';
+                }
+                else if (data[i]['player'] == 'blue'){
+
+                    if (blueFill == 'blue'){
+                        scatter_svg.append("text")
+                        .attr("y", y(blueMaterialValues[i]) + y_gap)
+                        .attr("x", x(bluePieces[i]) + x_gap)
+                        .text("Blue resigns in round " + data[i]["round"] + "!")
+                        .style("text-anchor", "start")
+                        .style("visibility", "hidden")
+                        .transition()
+                        .delay(delay * i)
+                        .style("visibility", "visible");
+                    }
+                    blueFill = '#7a61ab';
+                }
+                else if (data[i]['player'] == 'yellow'){
+
+                    if (yellowFill == 'yellow'){ 
+                        scatter_svg.append("text")
+                        .attr("y", y(yellowMaterialValues[i]) + y_gap)
+                        .attr("x", x(yellowPieces[i]) + x_gap)
+                        .text("Yellow resigns in round " + data[i]["round"] + "!")
+                        .style("text-anchor", "start")
+                        .style("visibility", "hidden")
+                        .transition()
+                        .delay(delay * i)
+                        .style("visibility", "visible");
+                    }
+                    yellowFill = '#ada86d';
+                }
+                else if (data[i]['player'] == 'green'){
+
+                    if (greenFill == 'green'){ 
+                        scatter_svg.append("text")
+                        .attr("y", y(greenMaterialValues[i]) + y_gap)
+                        .attr("x", x(greenPieces[i]) + x_gap)
+                        .text("Green resigns in round " + data[i]["round"] + "!")
+                        .style("text-anchor", "start")
+                        .style("visibility", "hidden")
+                        .transition()
+                        .delay(delay * i)
+                        .style("visibility", "visible");
+                    }
+                    greenFill = '#66815d';
+                }
+            }
+            // gray out if player doesn't move because they were checkmated by a prior move; add notation
+            else if ((data[i]['move'] == "") & (data[i]['round'] != lastRound)){
+
+                if (data[i]['player'] == 'red'){
+                    if (redFill == 'red'){ //  if false, don't add any more text - we already did
+                        scatter_svg.append("text")
+                        .attr("y", y(redMaterialValues[i]) + y_gap)
+                        .attr("x", x(redPieces[i]) + x_gap)
+                        .text("Red checkmated in round " + data[i-1]["round"] + "!") // subtract a round # because it's red, who starts rounds
+                        .style("text-anchor", "start")
+                        .style("visibility", "hidden")
+                        .transition()
+                        .delay(delay * i)
+                        .style("visibility", "visible");
+                    }
+                    redFill = '#b56d5b';
+                }
+                else if (data[i]['player'] == 'blue'){
+
+                    if (blueFill == 'blue'){ 
+                        scatter_svg.append("text")
+                        .attr("y", y(blueMaterialValues[i]) + y_gap)
+                        .attr("x", x(bluePieces[i]) + x_gap)
+                        .text("Blue checkmated in round " + data[i]["round"] + "!")
+                        .style("text-anchor", "start")
+                        .style("visibility", "hidden")
+                        .transition()
+                        .delay(delay * i)
+                        .style("visibility", "visible");
+                    }
+                    blueFill = '#7a61ab';
+                }
+                else if (data[i]['player'] == 'yellow'){
+
+                    if (yellowFill == 'yellow'){ 
+                        scatter_svg.append("text")
+                        .attr("y", y(yellowMaterialValues[i]) + y_gap)
+                        .attr("x", x(yellowPieces[i]) + x_gap)
+                        .text("Yellow checkmated in round " + data[i]["round"] + "!")
+                        .style("text-anchor", "start")
+                        .style("visibility", "hidden")
+                        .transition()
+                        .delay(delay * i)
+                        .style("visibility", "visible");
+                    }
+                    yellowFill = '#ada86d';
+                }
+                else if (data[i]['player'] == 'green'){
+
+                    if (greenFill == 'green'){ 
+                        scatter_svg.append("text")
+                        .attr("y", y(greenMaterialValues[i]) + y_gap)
+                        .attr("x", x(greenPieces[i]) + x_gap)
+                        .text("Green checkmated in round " + data[i]["round"] + "!")
+                        .style("text-anchor", "start")
+                        .style("visibility", "hidden")
+                        .transition()
+                        .delay(delay * i)
+                        .style("visibility", "visible");
+                    }
+                    greenFill = '#66815d';
+                }
+            }
+
+            // move circles
             d3.select("#redCircle")
                 .transition()
                 .delay(function(d){return delay * i})
                 .duration(duration)
                 .attr("cy", function(d) { return y(redMaterialValues[i]) })
-                .attr("cx", function(d) { return x(redPieces[i]) });
+                .attr("cx", function(d) { return x(redPieces[i]) })
+                .style("fill", redFill);
 
             d3.select("#blueCircle")
                 .transition()
                 .delay(function(d){return delay * i})
                 .duration(duration)
                 .attr("cy", function(d) { return y(blueMaterialValues[i]) })
-                .attr("cx", function(d) { return x(bluePieces[i]) });
+                .attr("cx", function(d) { return x(bluePieces[i]) })
+                .style("fill", blueFill);
 
             d3.select("#yellowCircle")
                 .transition()
                 .delay(function(d){return delay * i})
                 .duration(duration)
                 .attr("cy", function(d) { return y(yellowMaterialValues[i]) })
-                .attr("cx", function(d) { return x(yellowPieces[i]) });
+                .attr("cx", function(d) { return x(yellowPieces[i]) })
+                .style("fill", yellowFill);
             
             d3.select("#greenCircle")
                 .transition()
                 .delay(function(d){return delay * i})
                 .duration(duration)
                 .attr("cy", function(d) { return y(greenMaterialValues[i]) })
-                .attr("cx", function(d) { return x(greenPieces[i]) });
+                .attr("cx", function(d) { return x(greenPieces[i]) })
+                .style("fill", greenFill);
 
+            // draw line from previous position to current position
             if (i>0){
                 scatter_svg.append('line')
                     .style("stroke", "none")
@@ -257,10 +397,9 @@ d3.csv("data/" + game_id + "/moves.csv", function(data) {
         d3.select("#redCircle").raise();
     }
 
-    animate();
-    
+};
 
-});
+
 
 
 

@@ -1,17 +1,17 @@
-var game_id = "6258741";
+// var game_id = "6258741";
 
-// set the dimensions and margins of the graph
-var margin = {top: 30, right: 30, bottom: 30, left: 30},
-width = (window.innerWidth * .33) - margin.left - margin.right,
-height = width,
-    padding = 10;
+// // set the dimensions and margins of the graph
+// var margin = {top: 30, right: 30, bottom: 30, left: 30},
+// width = (window.innerWidth * .33) - margin.left - margin.right,
+// height = width,
+//     padding = 10;
 
-if (screen.width < 600){
-    margin = {top: 30, right: 30, bottom: 70, left: 70},
-    width = screen.width - 40 - margin.left - margin.right,
-    height = screen.width - 40 - margin.top - margin.bottom,
-    padding = 5;
-}
+// if (screen.width < 600){
+//     margin = {top: 30, right: 30, bottom: 70, left: 70},
+//     width = screen.width - 40 - margin.left - margin.right,
+//     height = screen.width - 40 - margin.top - margin.bottom,
+//     padding = 5;
+// }
 
 // append the svg object to the body of the page
 var timeplot_svg = d3.select("#lineplot")
@@ -20,11 +20,11 @@ var timeplot_svg = d3.select("#lineplot")
         .attr("width", width + margin.left + margin.right)
         .attr("height", height + margin.top + margin.bottom)
     .append("g")
-        .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
-        //.on("click", animate);
+        .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-//Read the data
-d3.csv("data/" + game_id + "/moves.csv", function(data) {
+
+// d3.csv("data/" + game_id + "/moves.csv", function(data) {
+function drawTimeplot(){
 
     data.forEach(function(d, i){
         d.redPoints = +d.redPoints;
@@ -56,32 +56,22 @@ d3.csv("data/" + game_id + "/moves.csv", function(data) {
         .range([ height-padding, padding ])
         .domain([0, maxPoints]);
     var yaxis = timeplot_svg.append("g")
+        .attr("id", "timeplotYaxis")
         .attr("class", "axis")
         .attr('transform', 'translate(0, 0)')
         .call(d3.axisLeft(y).ticks(3));
 
     //////////// draw lines ////////////////
 
-    // function transition(path) {
-    //     path.transition()
-    //         .duration((data.length * 100))
-    //         .attrTween("stroke-dasharray", tweenDash);
-    // }
-    // function tweenDash() {
-    //     var l = this.getTotalLength(),
-    //         i = d3.interpolateString("0," + l, l + "," + l);
-    //     return function (t) { return i(t); };
-    // }
-
     var yellowline = d3.line()
             .x(function(d) { return x(d.moveNumber); })
             .y(function(d) { return y(d.yellowPoints); });
-        // draw yellow line
-        timeplot_svg.append("path")
-            .data([data])
-            .attr("class", "yellowline")
-            .attr("d", yellowline)
-            //.call(transition);
+    // draw yellow line
+    timeplot_svg.append("path")
+        .data([data])
+        .attr("class", "yellowline")
+        .attr("d", yellowline)
+        //.call(transition);
 
     var blueline = d3.line()
         .x(function(d) { return x(d.moveNumber); })
@@ -92,8 +82,6 @@ d3.csv("data/" + game_id + "/moves.csv", function(data) {
         .attr("class", "blueline")
         .attr("d", blueline)
         //.call(transition);
-
-    
 
     var greenline = d3.line()
         .x(function(d) { return x(d.moveNumber); })
@@ -123,13 +111,12 @@ d3.csv("data/" + game_id + "/moves.csv", function(data) {
         .attr('width', width - padding)
         .attr('class', 'curtain')
         .attr('transform', 'rotate(180)')
-        .style('fill', '#181818')
         //.style('fill', '#fff')
         //.style("opacity", 0.5)
-        .transition()
-        .ease(d3.easeLinear)
-        .duration(data.length * 500)
-        .attr("width", 0)
+        // .transition()
+        // .ease(d3.easeLinear)
+        // .duration(data.length * 500)
+        // .attr("width", 0)
 
     /////////////////////////////////////////
 
@@ -148,14 +135,10 @@ d3.csv("data/" + game_id + "/moves.csv", function(data) {
     .attr("class", "axis_label")
     .style("text-anchor", "end");
 
+    function updateYAxis(move, duration, delay){
 
-    // params: newPointsMax is the new y-axis max
-    // params: move helps coordinate y-axis shift with curtain reveal. 
-    // ex: if move = 50, we should see the y-axis shift just when the points at move 50 are being revealed
-    function updateYAxis(move){
-
-        var duration = 500;
-        var delay = 500;
+        // var duration = 500;
+        // var delay = 500;
 
         // take data up to move param number
         var subset = data.filter(function(d) { return d.moveNumber < move })
@@ -182,7 +165,7 @@ d3.csv("data/" + game_id + "/moves.csv", function(data) {
         }
 
         y.domain([0, currentMax]);
-        yaxis.transition().duration(duration).delay(move * delay).ease(d3.easeLinear).call(d3.axisLeft(y).ticks(3));
+        d3.select("#timeplotYaxis").transition().duration(duration).delay(move * delay).ease(d3.easeLinear).call(d3.axisLeft(y).ticks(3));
 
         redline.y(function(d) { return y(d.redPoints); });
         d3.select(".redline").transition().duration(duration).delay(move * delay).ease(d3.easeLinear).attr("d", redline);
@@ -199,11 +182,25 @@ d3.csv("data/" + game_id + "/moves.csv", function(data) {
         d3.select("#lineplot_move_count").transition().delay(move * delay).text(move);
     }
 
-    for (i=0; i<data.length; i++){
-        updateYAxis(i);
+    animateTimeplot = function(duration, delay){
+
+        curtain // reset curtain, then start to 'move' it
+        .attr('x', -width + padding - 2)
+        .attr('y', -height)
+        .attr('height', height + margin.top + margin.bottom)
+        .attr('width', width - padding)
+        .transition()
+        .ease(d3.easeLinear)
+        .duration(data.length * duration)
+        .attr("width", 0)
+
+        for (i=1; i<data.length; i++){
+            updateYAxis(i, duration, delay);
+        };   
     };
 
+}
 
-})
+
 
 

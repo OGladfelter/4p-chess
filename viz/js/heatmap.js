@@ -1,15 +1,15 @@
-var game_id = "6258741";
+// var game_id = "6258741";
 
-// set the dimensions and margins of the graph
-var margin = {top: 30, right: 30, bottom: 30, left: 30},
-width = (window.innerWidth * .33) - margin.left - margin.right,
-height = width;
+// // set the dimensions and margins of the graph
+// var margin = {top: 30, right: 30, bottom: 30, left: 30},
+// width = (window.innerWidth * .33) - margin.left - margin.right,
+// height = width;
 
-if (screen.width < 600){
-    margin = {top: 30, right: 30, bottom: 70, left: 70},
-    width = screen.width - 40 - margin.left - margin.right,
-    height = screen.width - 40 - margin.top - margin.bottom;
-}
+// if (screen.width < 600){
+//     margin = {top: 30, right: 30, bottom: 70, left: 70},
+//     width = screen.width - 40 - margin.left - margin.right,
+//     height = screen.width - 40 - margin.top - margin.bottom;
+// }
 
 // append the svg object to the body of the page
 var svg_heatmap = d3.select("#heatmap")
@@ -17,16 +17,16 @@ var svg_heatmap = d3.select("#heatmap")
         .attr("width", width + margin.left + margin.right)
         .attr("height", height + margin.top + margin.bottom)
     .append("g")
-        .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
-        .on("click", animate);
+        .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
 //Read the data
-d3.csv("data/" + game_id + "/destinations.csv", function(data) {
+//d3.csv("data/" + game_id + "/destinations.csv", function(data) {
 
+function drawHeatmap(){
     // Build color scale for cells
     myColor = d3.scaleLinear()
         .range(["white", "black"])
-        .domain([0,d3.max(data, function(d) { return d.value; })])
+        .domain([0,d3.max(squareCountsData, function(d) { return d.value; })])
 
     var letters = ["a","b","c","d","e","f","g","h","i","j","k","l","m","n"]
     var numbers = [1,2,3,4,5,6,7,8,9,10,11,12,13,14];
@@ -44,8 +44,8 @@ d3.csv("data/" + game_id + "/destinations.csv", function(data) {
             var missing = 1;
 
             // check if it's in the dataset
-            for (d=0; d<data.length; d++){
-                if (coord == data[d].coordinate){
+            for (d=0; d<squareCountsData.length; d++){
+                if (coord == squareCountsData[d].coordinate){
                     // we found it! coord is not missing
                     missing = 0;
                     break; // no need to check the rest of the dataset
@@ -54,13 +54,13 @@ d3.csv("data/" + game_id + "/destinations.csv", function(data) {
 
             // if it was not found, we need to add it to the dataset. with a value of 0.
             if (missing == 1){
-                data.push({coordinate: coord, value: "0"})
+                squareCountsData.push({coordinate: coord, value: "0"})
             }
             
         }
     }
 
-    data.forEach(function(d, i){
+    squareCountsData.forEach(function(d, i){
         d.value = +d.value;
     });
 
@@ -69,20 +69,20 @@ d3.csv("data/" + game_id + "/destinations.csv", function(data) {
         .range([ 0, width ])
         .domain(letters)
         .padding(0.01);
-        svg_heatmap.append("g")
-        .attr("class", "heatmap_axis")
-        .attr("transform", "translate(0," + height + ")")
-        .call(d3.axisBottom(x));
+        // svg_heatmap.append("g")
+        // .attr("class", "heatmap_axis")
+        // .attr("transform", "translate(0," + height + ")")
+        // .call(d3.axisBottom(x));
     
     // Build Y scales and axis:
     var y = d3.scaleBand()
         .range([ height, 0 ])
         .domain(numbers)
         .padding(0.01);
-        svg_heatmap.append("g")
-        .attr("class", "heatmap_axis")
-        .attr('transform', 'translate(0, 0)')
-        .call(d3.axisLeft(y));
+        // svg_heatmap.append("g")
+        // .attr("class", "heatmap_axis")
+        // .attr('transform', 'translate(0, 0)')
+        // .call(d3.axisLeft(y));
 
     // if (screen.width < 600){
     //     d3.selectAll(".axis>.tick>text")
@@ -93,7 +93,7 @@ d3.csv("data/" + game_id + "/destinations.csv", function(data) {
     
     // draw and color the cells
     svg_heatmap.selectAll()
-        .data(data)
+        .data(squareCountsData)
         .enter()
         .append("rect")
         .attr("y", function(d) { return y((d.coordinate.substring(1))) })
@@ -114,7 +114,7 @@ d3.csv("data/" + game_id + "/destinations.csv", function(data) {
 
     // labels for squares
     texts = svg_heatmap.selectAll(".heatmapLabels")
-        .data(data, function(d) {return d.coordinate+':'+d.value;})
+        .data(squareCountsData, function(d) {return d.coordinate+':'+d.value;})
         .enter()
         .append("text")
         .attr("class", "heatmapLabels")
@@ -127,7 +127,7 @@ d3.csv("data/" + game_id + "/destinations.csv", function(data) {
 
     // mini labels for squares - 4 per. One for each player. Normally hidden, except on rect mouseover.
     svg_heatmap.selectAll(".redText")
-        .data(data, function(d) {return d.coordinate+':'+d.value;})
+        .data(squareCountsData, function(d) {return d.coordinate+':'+d.value;})
         .enter()
         .append("text")
         .attr("class", "redText colorText")
@@ -135,7 +135,7 @@ d3.csv("data/" + game_id + "/destinations.csv", function(data) {
         .attr("y", function(d) { return y((d.coordinate.substring(1))) + (height/14/4) })
         .attr("x", function(d) { return x(d.coordinate[0]) + (width/14/4) });
     svg_heatmap.selectAll(".yellowText")
-        .data(data, function(d) {return d.coordinate+':'+d.value;})
+        .data(squareCountsData, function(d) {return d.coordinate+':'+d.value;})
         .enter()
         .append("text")
         .attr("class", "yellowText colorText")
@@ -143,7 +143,7 @@ d3.csv("data/" + game_id + "/destinations.csv", function(data) {
         .attr("y", function(d) { return y((d.coordinate.substring(1))) + (height/14/1.5) })
         .attr("x", function(d) { return x(d.coordinate[0]) + (width/14/4) });
     svg_heatmap.selectAll(".blueText")
-        .data(data, function(d) {return d.coordinate+':'+d.value;})
+        .data(squareCountsData, function(d) {return d.coordinate+':'+d.value;})
         .enter()
         .append("text")
         .attr("class", "blueText colorText")
@@ -151,7 +151,7 @@ d3.csv("data/" + game_id + "/destinations.csv", function(data) {
         .attr("y", function(d) { return y((d.coordinate.substring(1))) + (height/14/4) })
         .attr("x", function(d) { return x(d.coordinate[0]) + (width/14/1.5) });
     svg_heatmap.selectAll(".greenText")
-        .data(data, function(d) {return d.coordinate+':'+d.value;})
+        .data(squareCountsData, function(d) {return d.coordinate+':'+d.value;})
         .enter()
         .append("text")
         .attr("class", "greenText colorText")
@@ -176,51 +176,50 @@ d3.csv("data/" + game_id + "/destinations.csv", function(data) {
     }
 
     // read moves data     
-    d3.csv("data/" + game_id + "/moves.csv", function(data) {
+    //d3.csv("data/" + game_id + "/moves.csv", function(data) {
+    
+    // now we use the moves dataset to fill in labels by player
 
-        // if a row doesn't represent an actual move, remove it
-        data = data.filter(function(d) { return d.move != "" });
+    // if a row doesn't represent an actual move, remove it
+    //data = data.filter(function(d) { return d.move != "" });
 
-        playerSquareCounts = {"red":{}, "blue":{}, "yellow":{}, "green":{}};
+    playerSquareCounts = {"red":{}, "blue":{}, "yellow":{}, "green":{}};
 
-        for (i=0; i<data.length; i++){
+    for (i=0; i<data.length; i++){
 
-            // skip the no-moves
-            if (data[i].destination == ""){
-                continue;
-            }
+        // skip the no-moves
+        if (data[i].destination == ""){
+            continue;
+        }
 
-            //  if this destination is already in the dicts, increment its value
-            if (playerSquareCounts[data[i].player].hasOwnProperty(data[i].destination)){
-                playerSquareCounts[data[i].player][data[i].destination] = playerSquareCounts[data[i].player][data[i].destination] + 1;
-            }
-            // otherwise, add it with value of 1
-            else{
-                playerSquareCounts[data[i].player][data[i].destination] = 1;
-            }
-        
-            // update the normally hidden more detailed texts too
-            d3.select("#" + data[i].destination + "redText").text(playerSquareCounts["red"][data[i].destination]);
-            d3.select("#" + data[i].destination + "blueText").text(playerSquareCounts["blue"][data[i].destination]);
-            d3.select("#" + data[i].destination + "yellowText").text(playerSquareCounts["yellow"][data[i].destination]);
-            d3.select("#" + data[i].destination + "greenText").text(playerSquareCounts["green"][data[i].destination]);
-        
-        }; // close for loop
-    })
+        //  if this destination is already in the dicts, increment its value
+        if (playerSquareCounts[data[i].player].hasOwnProperty(data[i].destination)){
+            playerSquareCounts[data[i].player][data[i].destination] = playerSquareCounts[data[i].player][data[i].destination] + 1;
+        }
+        // otherwise, add it with value of 1
+        else{
+            playerSquareCounts[data[i].player][data[i].destination] = 1;
+        }
+    
+        // update the normally hidden more detailed texts too
+        d3.select("#" + data[i].destination + "redText").text(playerSquareCounts["red"][data[i].destination]);
+        d3.select("#" + data[i].destination + "blueText").text(playerSquareCounts["blue"][data[i].destination]);
+        d3.select("#" + data[i].destination + "yellowText").text(playerSquareCounts["yellow"][data[i].destination]);
+        d3.select("#" + data[i].destination + "greenText").text(playerSquareCounts["green"][data[i].destination]);
+    
+    }; // close for loop
 
-})
+    animateHeatmap = function(duration, delay){
 
-function animate(){
+        // reset color and labels
+        d3.selectAll(".square").style("fill","white");
+        d3.selectAll(".heatmapLabels").each(function() {d3.select(this).text("");});
+        d3.selectAll(".colorText").each(function() {d3.select(this).text("");});
 
-    // reset color and labels
-    d3.selectAll(".square").style("fill","white");
-    d3.selectAll(".heatmapLabels").each(function() {d3.select(this).text("");});
-    d3.selectAll(".colorText").each(function() {d3.select(this).text("");});
+        // read and save moves data     
+        //d3.csv("data/" + game_id + "/moves.csv", function(data) {
 
-    // read and save moves data     
-    d3.csv("data/" + game_id + "/moves.csv", function(data) {
-
-        var delay = 500;
+        //var delay = 500;
 
         // if a row doesn't represent an actual move, remove it
         //data = data.filter(function(d) { return d.move != "" });
@@ -261,8 +260,8 @@ function animate(){
                 .delay(delay * i) // delay each animation by factor of i, so they don't all trigger at once
                 .style("fill", function (d){return data[i]["player"]}) // change square color to reflect player who moved here 
                 .transition()
-                .delay(delay/2) // pause 
-                .duration(delay/2) // gradually switch to new color
+                .delay(duration/2) // pause 
+                .duration(duration/2) // gradually switch to new color
                 .style("fill", myColor(squareCounts[data[i].destination])); // new color: darker if this square has already been visited
 
             // update text label in same square
@@ -281,7 +280,6 @@ function animate(){
             d3.select("#heatmap_move_count").transition().delay(i * delay).text(i);
 
         }; // close for loop
-    })
-}
+    }
 
-animate();
+};
