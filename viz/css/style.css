@@ -4,7 +4,7 @@ body {
     font-size: 16px;  
     margin: 0;  
     z-index:1;
-    background-color: white
+    background-color: #cccccc;
 }
 
 /* The navigation bar */
@@ -70,6 +70,18 @@ a:link.bylineLink { color: #141DFF; text-decoration: none;}
 a:visited.bylineLink { color: #141DFF; }
 a:hover.bylineLink {color: #0e005e; text-decoration: underline;}
 
+path{
+    fill: none;
+    stroke: #181818;
+}
+.axis { font: 16px sans-serif; fill: #181818;}
+.axis text{
+    fill: #181818;
+}
+.tick line{
+    stroke: #181818;
+}
+
 /* layout CSS */
 
 .container{
@@ -86,9 +98,11 @@ a:hover.bylineLink {color: #0e005e; text-decoration: underline;}
 
 .heatmap_axis { font: 16px sans-serif; stroke-width: 0;}
 .heatmap_axis line {stroke-width: 0;}
+.heatmap_axis text{ fill: #181818;}
 
 .square{
     stroke: black;
+    /* opacity: 0.5; */
 }
 
 .heatmapLabels {
@@ -137,52 +151,43 @@ a:hover.bylineLink {color: #0e005e; text-decoration: underline;}
 
 /* Points Timeplot and Pieces Scatterplot CSS */
 
-path{
-    fill: none;
-    stroke: silver;
-}
-.axis { font: 16px sans-serif; fill: silver;}
-.axis text{
-    fill: silver;
-}
-.tick line{
-    stroke: silver;
-}
-
-svg.dark_svg{
-    background-color: #181818;
+/* svg.dark_svg{
+    background-color: #cccccc;
+} */
+.curtain{
+    fill:#cccccc;
 }
 
 .redline {
     fill: none;
     stroke: red;
-    stroke-width: 3px;
+    stroke-width: 4px;
 }
 .blueline {
     fill: none;
     stroke: blue;
-    stroke-width: 3px;
+    stroke-width: 4px;
 }
 .yellowline {
     fill: none;
     stroke: yellow;
-    stroke-width: 3px;
+    stroke-width: 4px;
 }
 .greenline {
     fill: none;
     stroke: green;
-    stroke-width: 3px;
+    stroke-width: 4px;
 }
 .yxline{
     fill: none;
-    stroke: whitesmoke;
+    stroke: #181818;
     stroke-width: 1.5;
     stroke-dasharray: 10;
-    opacity: 0.5;
+    opacity: 1;
 }
 
 .axis_label{
-    fill: silver;
+    fill: #181818;
     font-size: 20px;
     text-anchor: middle;
     font-weight: bold;
@@ -191,5 +196,5 @@ svg.dark_svg{
 /* ********************* */
 
 line{
-    stroke-width: 3px;
+    stroke-width: 4px;
 }
