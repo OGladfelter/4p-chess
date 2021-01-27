@@ -15,10 +15,10 @@
         <title>4-Player Chess In Three Charts</title>
     
         <!-- Favicons -->
-        <!-- <link rel="apple-touch-icon" sizes="180x180" href="../favicon/apple-touch-icon.png">
+        <link rel="apple-touch-icon" sizes="180x180" href="../favicon/apple-touch-icon.png">
         <link rel="icon" type="image/png" sizes="32x32" href="../favicon/favicon-32x32.png">
         <link rel="icon" type="image/png" sizes="16x16" href="../favicon/favicon-16x16.png">
-        <link rel="manifest" href="../favicon/site.webmanifest"> -->
+        <link rel="manifest" href="../favicon/site.webmanifest">
     
         <!-- Facebook Opengraph -->
         <!-- <meta property="og:url" content="http://cultureplot.com/heatmap/" />
@@ -53,23 +53,24 @@
         <a href="https://cultureplot.com">Cultureplot</a>
     </div>
 
-    <h1 style="margin-top: 75px">One 4-Player Chess Game In Three Charts</h1>
+    <h1 style="margin-top: 75px">One 4-Player Chess Game In Four Charts</h1>
     <!-- <h2>Subtitle</h2> -->
     <h3>By <a href="https://cultureplot.com/about" target="_blank" class="bylineLink">Oliver Gladfelter</a></h3>
 
-
     <div class="container">
-        <div class="test" id="lineplot"></div>
-        <div class="test" id="heatmap"></div>
-        <div class="test" id="scatterplot"></div>
+        <div class="box" id="replica"></div>
+        <div class="box" id="heatmap"></div> 
+        <div class="box" id="lineplot"></div>
+        <div class="box" id="scatterplot"></div> 
     </div>
 
-    <span id="lineplot_move_count">0</span><span>   </span><span id="heatmap_move_count">0</span><span>   </span><span id="scatterplot_move_count">0</span>
+    <!-- <p onclick="animate(50,50)">Replay &#x1F504;</p> -->
 
     <script src="js/script.js"></script>
     <script src="js/heatmap.js"></script>
     <script src="js/points_timeplot.js"></script>
     <script src="js/pieces_scatterplot.js"></script>
+    <script src="js/replica.js"></script>
 
 </body>
 </html>
