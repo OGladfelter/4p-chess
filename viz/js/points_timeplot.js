@@ -1,18 +1,3 @@
-// var game_id = "6258741";
-
-// // set the dimensions and margins of the graph
-// var margin = {top: 30, right: 30, bottom: 30, left: 30},
-// width = (window.innerWidth * .33) - margin.left - margin.right,
-// height = width,
-//     padding = 10;
-
-// if (screen.width < 600){
-//     margin = {top: 30, right: 30, bottom: 70, left: 70},
-//     width = screen.width - 40 - margin.left - margin.right,
-//     height = screen.width - 40 - margin.top - margin.bottom,
-//     padding = 5;
-// }
-
 // append the svg object to the body of the page
 var timeplot_svg = d3.select("#lineplot")
     .append("svg")
@@ -178,8 +163,6 @@ function drawTimeplot(){
 
         greenline.y(function(d) { return y(d.greenPoints); });
         d3.select(".greenline").transition().duration(duration).delay(move * delay).ease(d3.easeLinear).attr("d", greenline);
-
-        d3.select("#lineplot_move_count").transition().delay(move * delay).text(move);
     }
 
     animateTimeplot = function(duration, delay){

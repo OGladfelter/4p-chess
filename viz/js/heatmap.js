@@ -1,16 +1,3 @@
-// var game_id = "6258741";
-
-// // set the dimensions and margins of the graph
-// var margin = {top: 30, right: 30, bottom: 30, left: 30},
-// width = (window.innerWidth * .33) - margin.left - margin.right,
-// height = width;
-
-// if (screen.width < 600){
-//     margin = {top: 30, right: 30, bottom: 70, left: 70},
-//     width = screen.width - 40 - margin.left - margin.right,
-//     height = screen.width - 40 - margin.top - margin.bottom;
-// }
-
 // append the svg object to the body of the page
 var svg_heatmap = d3.select("#heatmap")
     .append("svg")
@@ -101,7 +88,7 @@ function drawHeatmap(){
         .attr("width", width / 14 )
         .attr("height", height / 14 )
         .attr("class", "square")
-        .attr("id", function(d) { return d.coordinate })
+        .attr("id", function(d) { return d.coordinate + "heatmap_square"})
         .style("fill", function(d){return myColor(d.value)} )
         .on("mouseover", function(d){showAll(d.coordinate)})
         .on("mouseout", function(d){showAgg(d.coordinate)});
@@ -175,14 +162,6 @@ function drawHeatmap(){
         d3.selectAll("#" + coord + "text").style("visibility", "visible");
     }
 
-    // read moves data     
-    //d3.csv("data/" + game_id + "/moves.csv", function(data) {
-    
-    // now we use the moves dataset to fill in labels by player
-
-    // if a row doesn't represent an actual move, remove it
-    //data = data.filter(function(d) { return d.move != "" });
-
     playerSquareCounts = {"red":{}, "blue":{}, "yellow":{}, "green":{}};
 
     for (i=0; i<data.length; i++){
@@ -216,14 +195,6 @@ function drawHeatmap(){
         d3.selectAll(".heatmapLabels").each(function() {d3.select(this).text("");});
         d3.selectAll(".colorText").each(function() {d3.select(this).text("");});
 
-        // read and save moves data     
-        //d3.csv("data/" + game_id + "/moves.csv", function(data) {
-
-        //var delay = 500;
-
-        // if a row doesn't represent an actual move, remove it
-        //data = data.filter(function(d) { return d.move != "" });
-
         // start with blank slates
         squareCounts = {};
         playerSquareCounts = {"red":{}, "blue":{}, "yellow":{}, "green":{}};
@@ -255,7 +226,7 @@ function drawHeatmap(){
             }
 
             // update color of square
-            d3.select("#" + data[i].destination)
+            d3.select("#" + data[i].destination + "heatmap_square")
                 .transition()
                 .delay(delay * i) // delay each animation by factor of i, so they don't all trigger at once
                 .style("fill", function (d){return data[i]["player"]}) // change square color to reflect player who moved here 
@@ -276,8 +247,6 @@ function drawHeatmap(){
             d3.select("#" + data[i].destination + "blueText").transition().delay(delay * i).text(playerSquareCounts["blue"][data[i].destination]);
             d3.select("#" + data[i].destination + "yellowText").transition().delay(delay * i).text(playerSquareCounts["yellow"][data[i].destination]);
             d3.select("#" + data[i].destination + "greenText").transition().delay(delay * i).text(playerSquareCounts["green"][data[i].destination]);
-        
-            d3.select("#heatmap_move_count").transition().delay(i * delay).text(i);
 
         }; // close for loop
     }
