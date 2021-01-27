@@ -4,7 +4,7 @@ body {
     font-size: 16px;  
     margin: 0;  
     z-index:1;
-    background-color: #cccccc;
+    background-color: #d1d1f6;
 }
 
 /* The navigation bar */
@@ -85,11 +85,23 @@ path{
 /* layout CSS */
 
 .container{
-    display: flex;
+    margin: auto;
+    width: 75%;
+    /* display:grid;
+    grid-template-columns: 50% 50%; */
+}
+.box{
+    display:inline;
+    width: 25%;
+    align-items:center;
+    justify-content:center;
 }
 
-.test{
-    margin: auto;
+@media only screen and (max-width: 768px) {
+    .container{
+        width: 90%;
+        display: inline-block;
+    }
 }
 
 /* ***************** */
@@ -155,7 +167,7 @@ path{
     background-color: #cccccc;
 } */
 .curtain{
-    fill:#cccccc;
+    fill:#d1d1f6;
 }
 
 .redline {
@@ -193,8 +205,16 @@ path{
     font-weight: bold;
 }
 
-/* ********************* */
 
 line{
     stroke-width: 4px;
+}
+
+/* ********************* */
+
+/* replica game board and pieces css */
+
+.gameboard{
+    stroke: black;
+    fill: gray;
 }
