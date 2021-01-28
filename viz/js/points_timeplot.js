@@ -1,11 +1,13 @@
+var half_height = height / 1.5;
+
 // append the svg object to the body of the page
 var timeplot_svg = d3.select("#lineplot")
     .append("svg")
         .attr("class", "dark_svg")
-        .attr("width", width + margin.left + margin.right)
-        .attr("height", height + margin.top + margin.bottom)
+        .attr("width", width + plots_margin.left + plots_margin.right)
+        .attr("height", half_height + plots_margin.top + plots_margin.bottom)
     .append("g")
-        .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+        .attr("transform", "translate(" + plots_margin.left + "," + plots_margin.top + ")");
 
 
 // d3.csv("data/" + game_id + "/moves.csv", function(data) {
@@ -33,12 +35,12 @@ function drawTimeplot(){
         .domain([0, d3.max(data, function(d) { return d.moveNumber; })]);
     timeplot_svg.append("g")
         .attr("class", "axis")
-        .attr("transform", "translate(0," + height + ")")
+        .attr("transform", "translate(0," + half_height + ")")
         .call(d3.axisBottom(x).ticks(5));
     
     // Build Y scales and axis:
     var y = d3.scaleLinear()
-        .range([ height-padding, padding ])
+        .range([ half_height-padding, padding ])
         .domain([0, maxPoints]);
     var yaxis = timeplot_svg.append("g")
         .attr("id", "timeplotYaxis")
@@ -91,8 +93,8 @@ function drawTimeplot(){
     // create animation curtain
     var curtain = timeplot_svg.append('rect')
         .attr('x', -width + padding - 2)
-        .attr('y', -height)
-        .attr('height', height + margin.top + margin.bottom)
+        .attr('y', -half_height)
+        .attr('height', half_height + plots_margin.top + plots_margin.bottom)
         .attr('width', width - padding)
         .attr('class', 'curtain')
         .attr('transform', 'rotate(180)')
@@ -108,7 +110,7 @@ function drawTimeplot(){
     //// text labels /////////////////////////
     timeplot_svg.append("text")
     .attr("x", x(0))
-    .attr("y", y(maxPoints)+padding)
+    .attr("y", y(maxPoints)+ (padding * 3))
     .text("Points")
     .attr("class", "axis_label")
     .style("text-anchor", "start");
@@ -169,8 +171,8 @@ function drawTimeplot(){
 
         curtain // reset curtain, then start to 'move' it
         .attr('x', -width + padding - 2)
-        .attr('y', -height)
-        .attr('height', height + margin.top + margin.bottom)
+        .attr('y', -half_height)
+        .attr('height', half_height + plots_margin.top + plots_margin.bottom)
         .attr('width', width - padding)
         .transition()
         .ease(d3.easeLinear)

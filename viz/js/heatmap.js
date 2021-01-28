@@ -1,10 +1,10 @@
 // append the svg object to the body of the page
 var svg_heatmap = d3.select("#heatmap")
     .append("svg")
-        .attr("width", width + margin.left + margin.right)
-        .attr("height", height + margin.top + margin.bottom)
+        .attr("width", width + board_margin.left + board_margin.right)
+        .attr("height", height + board_margin.top + board_margin.bottom)
     .append("g")
-        .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+        .attr("transform", "translate(" + board_margin.left + "," + board_margin.top + ")");
 
 //Read the data
 //d3.csv("data/" + game_id + "/destinations.csv", function(data) {
