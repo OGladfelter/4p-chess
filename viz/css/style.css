@@ -3,7 +3,7 @@ body {
     line-height: 160%; 
     font-size: 16px;  
     margin: 0;  
-    z-index:1;
+    padding: 0;
     background-color: #d1d1f6;
 }
 
@@ -86,15 +86,23 @@ path{
 
 .container{
     margin: auto;
-    width: 75%;
-    /* display:grid;
-    grid-template-columns: 50% 50%; */
+    width: 75vw;
+    height: 100vh;
+    /* font-size: 0px; */
 }
 .box{
-    display:inline;
-    width: 25%;
-    align-items:center;
-    justify-content:center;
+    text-align: center;
+    display:inline-block;
+    vertical-align: top;
+    width: 60vh;
+    /* height: 51vh; */
+}
+.half_box{
+    text-align: center;
+    display:inline-block;
+    vertical-align: top;
+    width: 60vh;
+    /* height: 30vh; */
 }
 
 @media only screen and (max-width: 768px) {
