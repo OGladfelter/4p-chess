@@ -1,6 +1,6 @@
 body {
     text-align: center;
-    line-height: 160%; 
+    line-height: 120%; 
     font-size: 16px;  
     margin: 0;  
     padding: 0;
@@ -10,7 +10,7 @@ body {
 /* The navigation bar */
 .navbar {
     overflow: hidden;
-    background-color: #0e005e;
+    background-color: whitesmoke;
     top: 0; /* Position the navbar at the top of the page */
     width: 100%; /* Full width */
     z-index: 999;
@@ -23,7 +23,7 @@ body {
 /* Links inside the navbar */
 .navbar a {
     display: block;
-    color: #f2f2f2;
+    color: #0e005e;
     text-align: center;
     padding: 7px;
     text-decoration: none;
@@ -38,32 +38,21 @@ background: white;
 color: #0e005e;
 }
 
-
-/* div.tooltip {	
-    position: absolute;			
-    text-align: center;			
-    padding: 2px;				
-    font: 16px sans-serif;		
-    background: white;	
-    border: solid;
-    border: 2px solid black;		
-    border-radius: 5px;			
-    pointer-events: none;			
-} */
-
 p { font-size: 20px; font-family: "Sans-serif", Georgia, serif;}
 li { font-size: 20px; margin-bottom: 20px; font-family: "Sans-serif", Georgia, serif;}
 
 h1 { font-size: 48px; margin: 40px 10px 30px 10px; font-weight: bold; line-height: 45px; font-family: "Open Sans", Consolas, monaco, monospace;}
 h2 { font-size: 32px; margin: 10px 10px 30px 10px; font-weight: bold; font-family: "Open Sans", Consolas, monaco, monospace;}
-h3 { font-size: 18px; margin: 10px 10px 30px 10px; font-weight: normal; font-family: "Open Sans", Consolas, monaco, monospace;}
+h3 { font-size: 18px; margin: 10px 10px 15px 10px; font-weight: normal; font-family: "Open Sans", Consolas, monaco, monospace;}
+h4 {font-size: 16px; margin: 5px 0px 0px 0px;}
 article { text-align: left; width: 90%; margin: 0 auto;}
 
 @media only screen and (min-width: 768px) {
   article { text-align: left; width: 50%; margin: 0 auto;}
   h1 { font-size: 52px; margin: 40px 10px 30px 10px; font-weight: bold; line-height: 45px;}
   h2 { font-size: 36px; margin: 10px 10px 30px 10px; font-weight: bold;}
-  h3 { font-size: 22px; margin: 10px 10px 30px 10px; font-weight: normal;}
+  h3 { font-size: 22px; margin: 10px 10px 15px 10px; font-weight: normal;}
+  h4 {font-size: 20px; margin: 5px 0px 0px 0px;}
 }
 
 a:link.bylineLink { color: #141DFF; text-decoration: none;}
@@ -87,7 +76,8 @@ path{
 .container{
     margin: auto;
     width: 75vw;
-    height: 100vh;
+    margin-top: 50px;
+    /* height: 100vh; */
     /* font-size: 0px; */
 }
 .box{
@@ -108,7 +98,12 @@ path{
 @media only screen and (max-width: 768px) {
     .container{
         width: 90%;
-        display: inline-block;
+    }
+    .box{
+        width: 80vh;
+    }
+    .half_box{
+        width: 80vh;
     }
 }
 
@@ -225,4 +220,116 @@ line{
 .gameboard{
     stroke: black;
     fill: gray;
+}
+
+/* ********************* */
+
+/* collapsible */
+
+.sidebar {
+    height: 20%;
+    width: 0;
+    position: fixed;
+    z-index: 1;
+    top: 33%;
+    left: 0;
+    background-color: whitesmoke;
+    overflow-x: hidden;
+    transition: 0.5s;
+    padding-top: 20px;
+    vertical-align: top;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+  
+/* close menu button */
+.sidebar a {
+    padding: 8px 8px 8px 32px;
+    text-decoration: none;
+    font-size: 25px;
+    color: black;
+    display: block;
+    transition: 0.3s;
+}
+.sidebar a:hover {
+    color: gray;
+}
+.sidebar .closebtn {
+    position: absolute;
+    top: 0;
+    right: 5px;
+    font-size: 36px;
+}
+
+.content_holder {
+    height: 33%;
+    width: 100%;
+    display: table;
+    vertical-align: middle;
+}
+.sidebar_content{
+    display: table-cell;
+    vertical-align: middle;
+    /* border: 1px solid black; */
+}
+
+.openbtn {
+    left: 0;
+    top: 34%;
+    position: fixed;
+    font-size: 20px;
+    cursor: pointer;
+    background-color: lavender;
+    color: black;
+    border: 1px solid black;
+    border-left: 0px;
+    padding: 5px;
+}
+.openbtn:hover {
+    background-color: white;
+    color: #0e005e;
+}
+
+.replayButton{
+    padding: 5px;
+    color: black;
+    background-color: lightcoral;
+    border: 2px solid black;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+input{
+    cursor: pointer;
+}
+select{
+    cursor: pointer;
+}
+
+  /* On smaller screens, where height is less than 450px, change the style of the sidenav (less padding and a smaller font size) */
+@media screen and (max-height: 450px) {
+    .sidebar {padding-top: 15px;}
+    .sidebar a {font-size: 18px;}
+  }
+
+
+/* captured container graphic */
+
+.capturedContainer{
+    margin: auto;
+    width: 75vw;
+    margin-top: 75px;
+    margin-bottom: 100px;
+}
+
+.capturedSection{
+    top: 0;
+    display: inline-block;
+    border: 1px black solid;
+    background-color: whitesmoke;
+    width: 16vw;
+    min-height: 100px;
+}
+
+.captured_img{
+    float: left;
 }
