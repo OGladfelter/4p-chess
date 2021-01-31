@@ -234,12 +234,28 @@ function drawReplica(){
 
             if (d3.selectAll("#" + data[i].destination)._groups[0].length > 1){
                 
+                // save image of captured piece
+                var capturedHref = d3.select("#" + data[i].destination).attr('href');
+
                 // remove the first image given this id - it was the piece captured
                 d3.select("#" + data[i].destination)
                 .attr("id", "")
                 .transition()
                 .delay(i * delay + (delay / 2))
                 .style("visibility", "hidden");
+
+                // add image in 'Who Captured Whom?' chart
+                d3.select("#" + data[i].player + "Captures")
+                    .append('img')
+                    .attr("class", "captured_img")
+                    .attr('width', captured_img_size)
+                    .attr('height', captured_img_size)
+                    .attr('src', capturedHref)
+                    .style("opacity", "0")
+                    .transition()
+                    .duration(duration)
+                    .delay(i * delay)
+                    .style("opacity", "100%");
             };
 
             // if a pawn gets promoted to a queen, we need to change its image
@@ -270,5 +286,7 @@ function drawReplica(){
         .style("visibility", "visible")
         .style("filter", "none")
         .attr('href', function(d){return "./img/" + d.player + "/" + d.piece + ".svg"})
+
+        d3.selectAll(".captured_img").remove();
     }
 }

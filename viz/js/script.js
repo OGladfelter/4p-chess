@@ -1,8 +1,8 @@
 const game_id = "6579153";
-//const duration = 50;
-//const delay = 50;
+
 const circle_radius = 12; // used by pieces_scatterplot.js
 
+const captured_img_size = 40; // used by replica.js for 'Who Captured Whom" chart
 
 // set the dimensions and margins used by each graph
 var plots_margin = {top: 10, right: 30, bottom: 20, left: 30},
@@ -55,15 +55,33 @@ function animate(duration, delay){
     animateHeatmap(duration, delay); // defined in heatmap.js
     animateScatterplot(duration, delay); // defined in pieces_scatterplot.js
     animateReplica(duration, delay); // defined in replica.js
+
+    // the divs in the 'Who Captured Whom?' chart may grow. This keeps them equal:
+    var maxHeight = getMaxHeight('.capturedSection');
+    setHeight('.capturedSection', maxHeight);
+
+    setTimeout(() => {  
+        console.log("Open left-side menu");
+        openNav();
+    }, 500 * data.length);
 };
 
 // wait a second before calling animate(), since other js files are called after this one
 setTimeout(() => {  
     console.log("Commence animation"); 
-    animate(10, 10); 
+    //animate(500, 500); 
 }, 1000);
 
-function replay(duration, delay){
+function replay(){
+
+    // close nav menu after a second
+    setTimeout(() => {  
+        closeNav();
+    }, 1000);
+
+    // calc speed at which to play, determined by slider and a formula
+    var sliderValue = document.getElementById("slider").value;
+    var speed = (-100 * sliderValue) + 2100;
 
     //  kill the current animate() function somehow, incase it's in the middle of running
 
@@ -76,5 +94,42 @@ function replay(duration, delay){
     // replica: reset positions and ID for every piece, remove any added grayfilters
     resetReplica();
     
-    animate(duration, delay);
+    // now we can animate!
+    animate(speed, speed);
+
+    // reopen nav menu
+    setTimeout(() => {  
+        openNav();
+    }, speed * data.length);
+}
+
+// functions for the side bar //////////////////////////
+function openNav() {
+    document.getElementById("mySidebar").style.width = "15%";
+}
+  
+  function closeNav() {
+    document.getElementById("mySidebar").style.width = "0";
+}
+
+// messing with height in 'Who Captured Whom?' chart
+function getMaxHeight(className) {
+    var max = 0;
+    document.querySelectorAll(className).forEach(
+      function(el) {
+        if (el.scrollHeight > max) {
+          max = el.scrollHeight;
+        }
+      }
+    );
+    
+    return max;
+}
+  
+function setHeight(className, height) {
+    document.querySelectorAll(className).forEach(
+      function(el) {
+        el.style.height = height+'px';
+      }
+    );
 }
