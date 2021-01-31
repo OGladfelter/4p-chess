@@ -15,10 +15,10 @@
         <title>4-Player Chess In Four Charts</title>
     
         <!-- Favicons -->
-        <!-- <link rel="apple-touch-icon" sizes="180x180" href="../favicon/apple-touch-icon.png">
+        <link rel="apple-touch-icon" sizes="180x180" href="../favicon/apple-touch-icon.png">
         <link rel="icon" type="image/png" sizes="32x32" href="../favicon/favicon-32x32.png">
         <link rel="icon" type="image/png" sizes="16x16" href="../favicon/favicon-16x16.png">
-        <link rel="manifest" href="../favicon/site.webmanifest"> -->
+        <link rel="manifest" href="../favicon/site.webmanifest">
     
         <!-- Facebook Opengraph -->
         <!-- <meta property="og:url" content="http://cultureplot.com/heatmap/" />
@@ -57,6 +57,34 @@
     <!-- <h2>Subtitle</h2> -->
     <h3>By <a href="https://cultureplot.com/about" target="_blank" class="bylineLink">Oliver Gladfelter</a></h3>
 
+    <div id="mySidebar" class="sidebar">
+        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">×</a>
+        <div class="content_holder">
+            <div class="sidebar_content">
+                <button class="replayButton" onclick="replay()">Replay</button>
+            </div>
+        </div>
+        <div class="content_holder">
+            <div class="sidebar_content">
+                <label for="slider">Speed:</label>
+                <input type="range" id="slider" min="6" max="20" value="16" step="1">
+            </div>
+        </div>
+        <div class="content_holder">
+            <div class="sidebar_content">
+                <label for="other_games">See another game:</label>
+                <select name="other_games">
+                    <option value="1">Game 1</option>
+                    <option value="2">Game 2</option>
+                </select>
+            </div>
+        </div>
+    </div>
+      
+      <div id="main">
+        <button class="openbtn" onclick="openNav()">&#8594;</button>  
+      </div>
+
     <div class="container">
         <div class="box" id="replica"></div>
         <div class="box" id="heatmap"></div> 
@@ -64,7 +92,24 @@
         <div class="half_box" id="scatterplot"></div> 
     </div>
 
-    <!-- <p onclick="animate(50,50)">Replay &#x1F504;</p> -->
+
+    <div class="capturedContainer">
+        <h3>Who Captured Whom?</h3>
+        <div id="redCaptures" class="capturedSection">
+            <h4>Red</h4>
+        </div>
+        <div id="blueCaptures" class="capturedSection">
+            <h4>Blue</h4>
+        </div>
+        <div id="yellowCaptures" class="capturedSection">
+            <h4>Yellow</h4>
+        </div>
+        <div id="greenCaptures" class="capturedSection">
+            <h4>Green</h4>
+        </div>
+    </div>
+
+    
 
     <script src="js/script.js"></script>
     <script src="js/heatmap.js"></script>
