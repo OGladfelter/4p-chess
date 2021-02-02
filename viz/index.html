@@ -12,7 +12,7 @@
         </script> -->
                 
         <meta charset="utf-8">
-        <title>4-Player Chess In Four Charts</title>
+        <title>4-Player Chess In Five Charts</title>
     
         <!-- Favicons -->
         <link rel="apple-touch-icon" sizes="180x180" href="../favicon/apple-touch-icon.png">
@@ -53,7 +53,7 @@
         <a href="https://cultureplot.com">Cultureplot</a>
     </div>
 
-    <h1 style="margin-top: 75px">One 4-Player Chess Game In Four Charts</h1>
+    <h1 style="margin-top: 75px">4-Player Chess In Five Charts</h1>
     <!-- <h2>Subtitle</h2> -->
     <h3>By <a href="https://cultureplot.com/about" target="_blank" class="bylineLink">Oliver Gladfelter</a></h3>
 
@@ -61,7 +61,8 @@
         <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">×</a>
         <div class="content_holder">
             <div class="sidebar_content">
-                <button class="replayButton" onclick="replay()">Replay</button>
+                <button class="replayButton" onclick="replay()">Replay &#8635;</button>
+                <button class="replayButton" onclick="replay(10)">Skip &#x23e9;</button>
             </div>
         </div>
         <div class="content_holder">
@@ -73,9 +74,9 @@
         <div class="content_holder">
             <div class="sidebar_content">
                 <label for="other_games">See another game:</label>
-                <select name="other_games">
-                    <option value="1">Game 1</option>
-                    <option value="2">Game 2</option>
+                <select name="other_games" onchange="newGame(this.value)">
+                    <option value="6593805">6593805</option>
+                    <option value="6593774">6593774</option>
                 </select>
             </div>
         </div>
