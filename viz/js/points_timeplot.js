@@ -128,7 +128,7 @@ function drawTimeplot(){
         // var delay = 500;
 
         // take data up to move param number
-        var subset = data.filter(function(d) { return d.moveNumber < move })
+        var subset = data.filter(function(d) { return d.moveNumber <= move })
 
         // compute max points value in this subset
         const max1 = d3.max(subset, function(d) { return d.redPoints; });

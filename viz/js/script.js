@@ -1,7 +1,12 @@
-const game_id = "6579153";
+// check for URL parameter
+if (window.location.search == ""){
+    var game_id = "6593805"; // for users coming without a param
+}
+else{
+    var game_id = window.location.search.replace("?g=",""); // if there's a param in the URL
+}
 
 const circle_radius = 12; // used by pieces_scatterplot.js
-
 const captured_img_size = 40; // used by replica.js for 'Who Captured Whom" chart
 
 // set the dimensions and margins used by each graph
@@ -22,7 +27,14 @@ if (screen.width < 600){
 
 // read destinations data, used only in heatmap.js
 var squareCountsData;
-d3.csv("data/" + game_id + "/destinations.csv", function(csv) {
+d3.csv("data/" + game_id + "/destinations.csv", function(error, csv) {
+    if (error){ // likely would be caused by an invalid URL param. So replace URL param with our default and refresh the page
+        var url = new URL(location.href);
+        url.searchParams.set('g', "6593805");
+        var modifiedUrl = url.toString();
+        window.history.pushState({}, '', modifiedUrl);
+        location.reload();
+    };
     squareCountsData = csv;
 
 });
@@ -49,6 +61,19 @@ d3.csv("data/" + game_id + "/moves.csv", function(csv) {
     }, 200); // 200 ms gap just makes sure this script doesn't jump the point at which other script files are read as sources
 });
 
+// wait a second before calling animate(), since other js files are called after this one
+setTimeout(() => {  
+    console.log("Commence animation"); 
+    animate(500, 500); 
+}, 1000);
+
+// after 2 seconds from page load, close nav menu
+setTimeout(() => {  
+    closeNav(); 
+}, 2000);
+
+///////////////// functions ///////////////////////////////////////
+
 // call to trigger each graph's animation from the beginning
 function animate(duration, delay){
     animateTimeplot(duration, delay); // defined in points_timeplot.js
@@ -66,23 +91,24 @@ function animate(duration, delay){
     }, 500 * data.length);
 };
 
-// wait a second before calling animate(), since other js files are called after this one
-setTimeout(() => {  
-    console.log("Commence animation"); 
-    //animate(500, 500); 
-}, 1000);
+// this param is optional. if replay() is run without parameter, it will use slider value.
+function replay(speed){
 
-function replay(){
+    // cancel all current transitions
+    d3.selectAll("*").interrupt();
 
     // close nav menu after a second
     setTimeout(() => {  
         closeNav();
     }, 1000);
 
-    // calc speed at which to play, determined by slider and a formula
-    var sliderValue = document.getElementById("slider").value;
-    var speed = (-100 * sliderValue) + 2100;
-
+    // if no param, then use slider value. Otherwise, use what's given.
+    if (arguments.length == 0){
+            // calc speed at which to play, determined by slider and a formula
+            var sliderValue = document.getElementById("slider").value;
+            var speed = (-100 * sliderValue) + 2100;
+    }
+            
     //  kill the current animate() function somehow, incase it's in the middle of running
 
     // before calling the animate() function, we need to 'reset the board' for 2 of the graphs
@@ -102,6 +128,43 @@ function replay(){
         openNav();
     }, speed * data.length);
 }
+
+function newGame(game_id){
+
+    console.log(game_id);
+
+    // cancel all current transitions
+    d3.selectAll("*").interrupt();
+
+    // overwrite destinations data
+    d3.csv("data/" + game_id + "/destinations.csv", function(csv) {
+        squareCountsData = csv;
+    });
+
+    // overwrite moves data
+    d3.csv("data/" + game_id + "/moves.csv", function(csv) {
+        data = csv;
+
+        // remove timeplot, redraw with new data
+        timeplot_svg.selectAll("*").remove();
+        drawTimeplot();
+
+        // same process with scatterplot
+        scatter_svg.selectAll("*").remove();
+        drawScatterplot();
+
+        // start new animation
+        replay();
+
+        // update the url, but without refreshing the page - so users can share specific games
+        var url = new URL(location.href);
+        url.searchParams.set('g', game_id);
+        var modifiedUrl = url.toString();
+        window.history.pushState({}, '', modifiedUrl);
+    });
+
+}
+
 
 // functions for the side bar //////////////////////////
 function openNav() {

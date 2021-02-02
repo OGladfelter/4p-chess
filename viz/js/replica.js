@@ -236,6 +236,8 @@ function drawReplica(){
                 
                 // save image of captured piece
                 var capturedHref = d3.select("#" + data[i].destination).attr('href');
+               
+                //var capturedFilter = d3.select("#" + data[i].destination).style("filter");
 
                 // remove the first image given this id - it was the piece captured
                 d3.select("#" + data[i].destination)
