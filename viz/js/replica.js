@@ -118,11 +118,16 @@ function drawReplica(){
 
         const finalRound = data[data.length-1]["round"];
 
+        var redOut = 0;
+        var blueOut = 0;
+        var yellowOut = 0;
+        var greenOut = 0;
+
         for (i=0; i<data.length; i++){
             
             // if this move delivers a checkmate, gray out the pieces of the targeted player. Then proceed with rest of loop.
             if (data[i].move.includes("#")){
-                d3.selectAll("." + data[i].checkmate_target + "Piece").transition().delay(i*delay).style("filter", "url(#grayscale");
+                d3.selectAll("." + data[i].checkmate_target + "Piece").transition().delay(i*delay).style("filter", "url(#grayscale").attr("gray",true);
             }
             // some moves don't require moving (resigning, timing out, stalemating). Gray player out. Then skip rest of loop.
             else if (data[i].move == "R" | data[i].move == "T" | data[i].move == "S"){
@@ -131,7 +136,21 @@ function drawReplica(){
             }
             // skip the no-moves (also the non-moving player's pieces should have already been grayed out...)
             else if (data[i].move == ""){
-                //d3.selectAll("." + data[i].player + "Piece").transition().delay(i*delay).style("filter", "url(#grayscale");
+                
+                // prevent taking these players pieces from contributing to the 'Who Captured Whom' chart
+                if (data[i].player == 'red'){
+                    redOut = 1;
+                }
+                else if (data[i].player == 'blue'){
+                    blueOut = 1;
+                }
+                else if (data[i].player == 'yellow'){
+                    yellowOut = 1;
+                }
+                else if (data[i].player == 'green'){
+                    greenOut = 1;
+                }
+
                 continue;
             }
 
@@ -236,41 +255,68 @@ function drawReplica(){
                 
                 // save image of captured piece
                 var capturedHref = d3.select("#" + data[i].destination).attr('href');
-               
-                //var capturedFilter = d3.select("#" + data[i].destination).style("filter");
+                var capturedColor = d3.select("#" + data[i].destination).attr("class").replace("Piece","");
+
+                // twas a promoted queen that was captured
+                if (d3.select("#" + data[i].destination).attr("promotedQueen")){
+                    // so overwrite the captureHref
+                    capturedHref = "./img/" + capturedColor + "/promoted_pawn.svg";
+                };
 
                 // remove the first image given this id - it was the piece captured
                 d3.select("#" + data[i].destination)
-                .attr("id", "")
+                .attr("id", "g")
                 .transition()
                 .delay(i * delay + (delay / 2))
-                .style("visibility", "hidden");
+                .style("visibility", "hidden")
+                .attr("id", "h")
 
-                // add image in 'Who Captured Whom?' chart
-                d3.select("#" + data[i].player + "Captures")
-                    .append('img')
-                    .attr("class", "captured_img")
-                    .attr('width', captured_img_size)
-                    .attr('height', captured_img_size)
-                    .attr('src', capturedHref)
-                    .style("opacity", "0")
-                    .transition()
-                    .duration(duration)
-                    .delay(i * delay)
-                    .style("opacity", "100%");
-            };
-
+                if ((capturedColor == 'blue' & blueOut == 0) | (capturedColor == 'red' & redOut == 0) | (capturedColor == 'yellow' & yellowOut == 0)  | (capturedColor == 'green' & greenOut == 0)){
+                    // add image in 'Who Captured Whom?' chart
+                    d3.select("#" + data[i].player + "Captures")
+                        .append('img')
+                        .attr("class", "captured_img")
+                        .attr('width', captured_img_size)
+                        .attr('height', captured_img_size)
+                        .attr('src', capturedHref)
+                        .style("opacity", "0")
+                        .transition()
+                        .duration(duration)
+                        .delay(i * delay)
+                        .style("opacity", "100%");
+                    };  
+                }
+                
             // if a pawn gets promoted to a queen, we need to change its image
             if (data[i].moveNote.includes("=D")){
                 
                 d3.select("#" + data[i].destination)
+                .attr("promotedQueen", true) // custom attribute
                 .transition()
                 .duration(duration / 2)
                 .delay(i * delay + (delay / 2)) // needs to be a bit delayed so pawn moving squares transition is not interupted
-                .attr('href', function(d){return "./img/" + data[i].player + "/" + "promoted_pawn" + ".svg"});
+                .attr('href', function(d){return "./img/" + data[i].player + "/" + "promoted_pawn" + ".svg"}) // update href
             }
             
-        
+            // this couldn't be included above, because a player can capture a piece and deliver a checkmate in the same move - should 
+            // still get credit in the Who Captured Whom section
+            if (data[i].move.includes("#")){
+                // prevent taking these players pieces from contributing to the 'Who Captured Whom' chart
+                // prevent taking these players pieces from contributing to the 'Who Captured Whom' chart
+                if (data[i].checkmate_target == 'red'){
+                    redOut = 1;
+                }
+                else if (data[i].checkmate_target == 'blue'){
+                    blueOut = 1;
+                }
+                else if (data[i].checkmate_target == 'yellow'){
+                    yellowOut = 1;
+                }
+                else if (data[i].checkmate_target == 'green'){
+                    greenOut = 1;
+                }
+            }
+
         }; // close for loop
     }
 
