@@ -1,11 +1,16 @@
 body {
     text-align: center;
-    line-height: 120%; 
+    line-height: 160%; 
     font-size: 16px;  
     margin: 0;  
     padding: 0;
     background-color: #eeeeee;
+    font-family: Georgia, arial, sans-serif;
 }
+
+a:link { color: #141DFF; text-decoration: none;}
+a:visited{ color: #141DFF; }
+a:hover {text-decoration: underline; background-color: #98ffff;}
 
 /* The navigation bar */
 .navbar {
@@ -38,12 +43,13 @@ background: white;
 color: #0e005e;
 }
 
-p { font-size: 20px; font-family: "Sans-serif", Georgia, serif;}
-li { font-size: 20px; margin-bottom: 20px; font-family: "Sans-serif", Georgia, serif;}
+p { font-size: 20px;}
+span { font-size: 20px;}
+li { font-size: 20px; margin-bottom: 20px;}
 
-h1 { font-size: 48px; margin: 40px 10px 30px 10px; font-weight: bold; line-height: 45px; font-family: "Open Sans", Consolas, monaco, monospace;}
-h2 { font-size: 32px; margin: 10px 10px 30px 10px; font-weight: bold; font-family: "Open Sans", Consolas, monaco, monospace;}
-h3 { font-size: 18px; margin: 10px 10px 15px 10px; font-weight: normal; font-family: "Open Sans", Consolas, monaco, monospace;}
+h1 { font-size: 48px; margin: 40px 10px 30px 10px; font-weight: bold; line-height: 45px;}
+h2 { font-size: 32px; margin: 10px 10px 30px 10px; font-weight: bold; }
+h3 { font-size: 18px; margin: 10px 10px 15px 10px; font-weight: normal; }
 h4 {font-size: 16px; margin: 5px 0px 0px 0px;}
 article { text-align: left; width: 90%; margin: 0 auto;}
 
@@ -59,6 +65,15 @@ a:link.bylineLink { color: #141DFF; text-decoration: none;}
 a:visited.bylineLink { color: #141DFF; }
 a:hover.bylineLink {color: #0e005e; text-decoration: underline;}
 
+::-moz-selection { /* Code for Firefox */
+    background: #98ffff;
+    color: #0e005e;
+}
+::selection {
+    background: #98ffff;
+    color: #0e005e;
+}
+
 path{
     fill: none;
     stroke: #181818;
@@ -69,6 +84,7 @@ path{
 }
 .tick line{
     stroke: #181818;
+    stroke-width: 2px;
 }
 
 /* layout CSS */
@@ -290,6 +306,9 @@ line{
     background-color: lightcyan;
     color: #0e005e;
 }
+.closebtn:hover{
+    background-color: rgba(245, 245, 245, 0);
+}
 
 .replayButton{
     padding: 5px;
@@ -301,6 +320,9 @@ line{
     border-radius: 5px;
     cursor: pointer;
     box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+}
+.replayButton:hover{
+    background-color: rgb(240, 250, 250);
 }
 
 input{
@@ -337,4 +359,64 @@ select{
 
 .captured_img{
     float: left;
+}
+
+/* css for annotations */
+g.annotation-connector{
+    stroke-width: 2px;
+}
+path.connector-end.connector-arrow{
+    fill: lightcyan;
+    stroke: 3px;
+}
+.show-bg{
+    font-size: 18px;
+    /* font-weight: bold; */
+}
+.annotationBackground{
+    fill: lightcyan;
+    rx: 5;
+    ry: 5;
+    stroke: black;
+}
+
+/* dynamic text stuff */
+.sectionTitle{
+    font-size: 22px;
+    font-weight: bold;
+    text-align: center;
+    margin: auto;
+    margin-top: 50px;
+}
+.section{
+    font-style: italic;
+    font-size: 22px;
+    margin-bottom: 5px;
+}
+.dynamicText{
+    margin-top: 0;
+}
+
+.piecesMovedSpan{font-size: 18px;}
+
+
+table {
+    font-family: Georgia, Arial, sans-serif;
+    border-collapse: collapse;
+    width: 50%;
+    margin: auto;
+    margin-top: 20px;
+    margin-bottom: 100px;
+    background-color: white;
+}
+  
+td, th {
+    text-align: left;
+    padding: 10px;
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+
+tr:hover{
+    background-color: lightcyan;
 }
