@@ -16,7 +16,6 @@ else{
     }
 }
 
-const circle_radius = 12; // used by pieces_scatterplot.js
 const captured_img_size = 40; // used by replica.js for 'Who Captured Whom" chart
 
 // set the dimensions and margins used by each graph
@@ -29,9 +28,10 @@ padding = 5;
 
 // switch for mobile screens
 if (screen.width < 600){
-    margin = {top: 30, right: 30, bottom: 70, left: 70},
-    width = screen.width - 40 - margin.left - margin.right,
-    height = screen.width - 40 - margin.top - margin.bottom,
+    var plots_margin = {top: 20, right: 30, bottom: 20, left: 40},
+    width = ((document.querySelector(".box").offsetWidth)) - plots_margin.left - plots_margin.right,
+    //width = (document.getElementById("replica").offsetWidth) - margin.left - margin.right,
+    height = width,
     padding = 5;
 }
 
@@ -93,9 +93,11 @@ function animate(duration, delay){
     animateScatterplot(duration, delay); // defined in pieces_scatterplot.js
     animateReplica(duration, delay); // defined in replica.js
 
-    // the divs in the 'Who Captured Whom?' chart may grow. This keeps them equal:
-    var maxHeight = getMaxHeight('.capturedSection');
-    setHeight('.capturedSection', maxHeight);
+    if (screen.width >= 600){
+       // the divs in the 'Who Captured Whom?' chart may grow. This keeps them equal:
+        var maxHeight = getMaxHeight('.capturedSection');
+        setHeight('.capturedSection', maxHeight); 
+    }
 
     setTimeout(() => {  
         openNav();
@@ -177,7 +179,12 @@ function newGame(game_id){
 
 // functions for the side bar //////////////////////////
 function openNav() {
-    document.getElementById("mySidebar").style.width = "15%";
+    if (screen.width < 600){
+        document.getElementById("mySidebar").style.width = "65%";
+    }
+    else{
+       document.getElementById("mySidebar").style.width = "15%"; 
+    }
 }
   
   function closeNav() {

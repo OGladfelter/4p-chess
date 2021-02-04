@@ -80,28 +80,29 @@ function drawScatterplot(){
         .attr("id", function(d){ return "redCircle"})
         .attr("cy", function(d) { return y(redMaterialValues[0]) })
         .attr("cx", function(d) { return x(redPieces[0]) })
-        .style("r", circle_radius)
+        //.style("r", circle_radius)
+        .attr("class", "scatterCircle")
         .style("fill", function(d){return "rgb(191, 59, 67)"} );
 
     scatter_svg.append("circle")
         .attr("id", function(d){ return "blueCircle"})
         .attr("cy", function(d) { return y(blueMaterialValues[0]) })
         .attr("cx", function(d) { return x(bluePieces[0]) })
-        .style("r", circle_radius)
+        .attr("class", "scatterCircle")
         .style("fill", function(d){return "rgb(65, 133, 191)"} );
 
     scatter_svg.append("circle")
         .attr("id", function(d){ return "yellowCircle"})
         .attr("cy", function(d) { return y(yellowMaterialValues[0]) })
         .attr("cx", function(d) { return x(yellowPieces[0]) })
-        .style("r", circle_radius)
+        .attr("class", "scatterCircle")
         .style("fill", function(d){return "rgb(192, 149, 38)"} );
 
     scatter_svg.append("circle")
         .attr("id", function(d){ return "greenCircle"})
         .attr("cy", function(d) { return y(greenMaterialValues[0]) })
         .attr("cx", function(d) { return x(greenPieces[0]) })
-        .style("r", circle_radius)
+        .attr("class", "scatterCircle")
         .style("fill", function(d){return "rgb(78, 145, 97)"} );
 
     //Container for the gradients
