@@ -4,6 +4,16 @@ if (window.location.search == ""){
 }
 else{
     var game_id = window.location.search.replace("?g=",""); // if there's a param in the URL
+
+    // update select to match URL param
+    var select = document.getElementById('gameSelect');
+    var opts = select.options;
+    for (var opt, j = 0; opt = opts[j]; j++) {
+        if (opt.value == game_id) {
+            select.selectedIndex = j;
+            break;
+        }
+    }
 }
 
 const circle_radius = 12; // used by pieces_scatterplot.js
@@ -58,7 +68,9 @@ d3.csv("data/" + game_id + "/moves.csv", function(csv) {
         drawHeatmap();
         drawScatterplot();
         drawReplica();
-    }, 200); // 200 ms gap just makes sure this script doesn't jump the point at which other script files are read as sources
+        updateAllProse();
+        
+    }, 500); // 200 ms gap just makes sure this script doesn't jump the point at which other script files are read as sources
 });
 
 // wait a second before calling animate(), since other js files are called after this one
@@ -86,7 +98,6 @@ function animate(duration, delay){
     setHeight('.capturedSection', maxHeight);
 
     setTimeout(() => {  
-        console.log("Open left-side menu");
         openNav();
     }, 500 * data.length);
 };
@@ -100,7 +111,7 @@ function replay(speed){
     // close nav menu after a second
     setTimeout(() => {  
         closeNav();
-    }, 1000);
+    }, 3000);
 
     // if no param, then use slider value. Otherwise, use what's given.
     if (arguments.length == 0){
@@ -109,8 +120,6 @@ function replay(speed){
             var speed = (-100 * sliderValue) + 2100;
     }
             
-    //  kill the current animate() function somehow, incase it's in the middle of running
-
     // before calling the animate() function, we need to 'reset the board' for 2 of the graphs
     // (the timeplot and heatmap animation functions already redrawn the curtain and white out the squares, respectively)
     
@@ -130,8 +139,6 @@ function replay(speed){
 }
 
 function newGame(game_id){
-
-    console.log(game_id);
 
     // cancel all current transitions
     d3.selectAll("*").interrupt();
@@ -153,6 +160,9 @@ function newGame(game_id){
         scatter_svg.selectAll("*").remove();
         drawScatterplot();
 
+        // update prose section
+        updateAllProse();
+
         // start new animation
         replay();
 
@@ -162,7 +172,6 @@ function newGame(game_id){
         var modifiedUrl = url.toString();
         window.history.pushState({}, '', modifiedUrl);
     });
-
 }
 
 

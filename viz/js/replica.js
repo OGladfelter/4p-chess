@@ -258,7 +258,7 @@ function drawReplica(){
                 var capturedColor = d3.select("#" + data[i].destination).attr("class").replace("Piece","");
 
                 // twas a promoted queen that was captured
-                if (d3.select("#" + data[i].destination).attr("promotedQueen")){
+                if (d3.select("#" + data[i].destination).attr("promotedQueen") == 1){
                     // so overwrite the captureHref
                     capturedHref = "./img/" + capturedColor + "/promoted_pawn.svg";
                 };
@@ -284,14 +284,13 @@ function drawReplica(){
                         .duration(duration)
                         .delay(i * delay)
                         .style("opacity", "100%");
-                    };  
-                }
+                };  
+            }
                 
             // if a pawn gets promoted to a queen, we need to change its image
             if (data[i].moveNote.includes("=D")){
-                
                 d3.select("#" + data[i].destination)
-                .attr("promotedQueen", true) // custom attribute
+                .attr("promotedQueen", 1) // custom attribute
                 .transition()
                 .duration(duration / 2)
                 .delay(i * delay + (delay / 2)) // needs to be a bit delayed so pawn moving squares transition is not interupted
@@ -323,11 +322,7 @@ function drawReplica(){
     // reset positions and ID for every piece, remove any added grayfilters, switch promoted queens back to pawns, reshow hidden pieces
     resetReplica = function(){
         replica_svg.selectAll('image')
-        // .transition()
-        // .duration(500)
-        // .data(startingPositions)
-        // .enter()
-        // .append('image')
+        .attr("promotedQueen", 0)
         .attr("id", function(d){return d.coordinate})
         .attr("x", function(d){return x(d.coordinate[0])})
         .attr("y", function(d){return y(d.coordinate.substring(1))})

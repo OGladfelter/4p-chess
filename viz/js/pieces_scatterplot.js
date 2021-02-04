@@ -81,28 +81,28 @@ function drawScatterplot(){
         .attr("cy", function(d) { return y(redMaterialValues[0]) })
         .attr("cx", function(d) { return x(redPieces[0]) })
         .style("r", circle_radius)
-        .style("fill", function(d){return "red"} );
+        .style("fill", function(d){return "rgb(191, 59, 67)"} );
 
     scatter_svg.append("circle")
         .attr("id", function(d){ return "blueCircle"})
         .attr("cy", function(d) { return y(blueMaterialValues[0]) })
         .attr("cx", function(d) { return x(bluePieces[0]) })
         .style("r", circle_radius)
-        .style("fill", function(d){return "blue"} );
+        .style("fill", function(d){return "rgb(65, 133, 191)"} );
 
     scatter_svg.append("circle")
         .attr("id", function(d){ return "yellowCircle"})
         .attr("cy", function(d) { return y(yellowMaterialValues[0]) })
         .attr("cx", function(d) { return x(yellowPieces[0]) })
         .style("r", circle_radius)
-        .style("fill", function(d){return "yellow"} );
+        .style("fill", function(d){return "rgb(192, 149, 38)"} );
 
     scatter_svg.append("circle")
         .attr("id", function(d){ return "greenCircle"})
         .attr("cy", function(d) { return y(greenMaterialValues[0]) })
         .attr("cx", function(d) { return x(greenPieces[0]) })
         .style("r", circle_radius)
-        .style("fill", function(d){return "green"} );
+        .style("fill", function(d){return "rgb(78, 145, 97)"} );
 
     //Container for the gradients
     var defs = scatter_svg.append("defs");
@@ -151,15 +151,22 @@ function drawScatterplot(){
     .attr("class", "axis_label")
     .style("text-anchor", "start");
 
+    scatter_svg.append("text")
+    .attr("y", y(maxMaterial)+ (padding * 8))
+    .attr("x", x(minPieces))
+    .style("font-size", "20px")
+    .html("&#x2655; = 9, &#x2657;&#x2656; = 5, &#x2658; = 3, &#x2659; = 1")
+    .style("text-anchor", "start");
+
     /////////////////////////////////////////
 
     // animate function /////////////////////////
     animateScatterplot = function(duration, delay){
 
-        var redFill = 'red';
-        var blueFill = 'blue';
-        var yellowFill = 'yellow';
-        var greenFill = 'green';
+        var redFill = 'rgb(191, 59, 67)';
+        var blueFill = 'rgb(65, 133, 191)';
+        var yellowFill = 'rgb(192, 149, 38)';
+        var greenFill = 'rgb(78, 145, 97)';
 
         // const lastRound = data[data.length-1]["round"];
         // const y_gap = -5;
@@ -170,17 +177,17 @@ function drawScatterplot(){
             // gray out circle if corresponding player resigns or times out
             if ((data[i]['move'] == "R") | (data[i]['move'] == "T") | (data[i]['move'] == "S")){
 
-                if (data[i]['player'] == 'red'){redFill = '#b56d5b';}
-                else if (data[i]['player'] == 'blue'){blueFill = '#7a61ab';}
-                else if (data[i]['player'] == 'yellow'){yellowFill = '#ada86d';}
-                else if (data[i]['player'] == 'green'){greenFill = '#66815d';}
+                if (data[i]['player'] == 'red'){redFill = '#8d7877';}
+                else if (data[i]['player'] == 'blue'){blueFill = '#7b8189';}
+                else if (data[i]['player'] == 'yellow'){yellowFill = '#8c8375';}
+                else if (data[i]['player'] == 'green'){greenFill = '#7a837c';}
             }
             // or if a player was checkmated, find who and gray out their pieces
             else if (data[i].move.includes("#")){
-                if (data[i]['checkmate_target'] == 'red'){redFill = '#b56d5b';}
-                else if (data[i]['checkmate_target'] == 'blue'){blueFill = '#7a61ab';}
-                else if (data[i]['checkmate_target'] == 'yellow'){yellowFill = '#ada86d';}
-                else if (data[i]['checkmate_target'] == 'green'){greenFill = '#66815d';}
+                if (data[i]['checkmate_target'] == 'red'){redFill = '#8d7877';}
+                else if (data[i]['checkmate_target'] == 'blue'){blueFill = '#7b8189';}
+                else if (data[i]['checkmate_target'] == 'yellow'){yellowFill = '#8c8375';}
+                else if (data[i]['checkmate_target'] == 'green'){greenFill = '#7a837c';}
             }
 
             // move circles
@@ -219,6 +226,7 @@ function drawScatterplot(){
             // draw line from previous position to current position
             if (i>0){
                 scatter_svg.append('line')
+                    .attr("class", "linePath")
                     .style("stroke", "none")
                     .attr("y1", y(redMaterialValues[i-1]))
                     .attr("x1", x(redPieces[i-1]))
@@ -227,9 +235,10 @@ function drawScatterplot(){
                     .transition()
                     .duration(duration)
                     .delay((delay * i) + delay)
-                    .style("stroke", "red");
+                    .style("stroke", "rgb(191, 59, 67)");
 
                 scatter_svg.append('line')
+                    .attr("class", "linePath")
                     .style("stroke", "none")
                     .attr("y1", y(blueMaterialValues[i-1]))
                     .attr("x1", x(bluePieces[i-1]))
@@ -238,9 +247,10 @@ function drawScatterplot(){
                     .transition()
                     .duration(duration)
                     .delay((delay * i) + delay)
-                    .style("stroke", "blue");
+                    .style("stroke", "rgb(65, 133, 191)");
 
                 scatter_svg.append('line')
+                    .attr("class", "linePath")
                     .style("stroke", "none")
                     .attr("y1", y(yellowMaterialValues[i-1]))
                     .attr("x1", x(yellowPieces[i-1]))
@@ -249,9 +259,10 @@ function drawScatterplot(){
                     .transition()
                     .duration(duration)
                     .delay((delay * i) + delay)
-                    .style("stroke", "yellow"); 
+                    .style("stroke", "rgb(192, 149, 38)"); 
 
                 scatter_svg.append('line')
+                    .attr("class", "linePath")
                     .style("stroke", "none")
                     .attr("y1", y(greenMaterialValues[i-1]))
                     .attr("x1", x(greenPieces[i-1]))
@@ -260,7 +271,7 @@ function drawScatterplot(){
                     .transition()
                     .duration(duration)
                     .delay((delay * i) + delay)
-                    .style("stroke", "green"); 
+                    .style("stroke", "rgb(78, 145, 97)"); 
             }
         } // end for loop
 
@@ -272,43 +283,35 @@ function drawScatterplot(){
 
     // remove lines, reset circle position, reset circle color
     resetScatterplot = function(){
-        scatter_svg.selectAll('line').remove();
-
-        // redraw this line since we removed it
-        scatter_svg.append('line')
-        .attr("class", "yxline")
-        .attr("x1", x(minPieces))
-        .attr("y1", y(0))
-        .attr("x2", x(maxPieces))
-        .attr("y2", y(maxMaterial));
+        scatter_svg.selectAll('.linePath').remove();
 
         d3.select("#redCircle")
             .transition()
             .duration(500)
             .attr("cy", function(d) { return y(redMaterialValues[0]) })
             .attr("cx", function(d) { return x(redPieces[0]) })
-            .style("fill", function(d){return "red"} );
+            .style("fill", function(d){return "rgb(191, 59, 67)"} );
 
         d3.select("#blueCircle")
             .transition()
             .duration(500)
             .attr("cy", function(d) { return y(blueMaterialValues[0]) })
             .attr("cx", function(d) { return x(bluePieces[0]) })
-            .style("fill", function(d){return "blue"} );
+            .style("fill", function(d){return "rgb(65, 133, 191)"} );
 
         d3.select("#yellowCircle")
             .transition()
             .duration(500)
             .attr("cy", function(d) { return y(yellowMaterialValues[0]) })
             .attr("cx", function(d) { return x(yellowPieces[0]) })
-            .style("fill", function(d){return "yellow"} );
+            .style("fill", function(d){return "rgb(192, 149, 38)"} );
 
         d3.select("#greenCircle")
             .transition()
             .duration(500)
             .attr("cy", function(d) { return y(greenMaterialValues[0]) })
             .attr("cx", function(d) { return x(greenPieces[0]) })
-            .style("fill", function(d){return "green"} );
+            .style("fill", function(d){return "rgb(78, 145, 97)"} );
     };
 
 };
