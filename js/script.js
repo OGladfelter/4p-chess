@@ -43,7 +43,7 @@ d3.csv("data/" + game_id + "/destinations.csv", function(error, csv) {
         url.searchParams.set('g', "6593805");
         var modifiedUrl = url.toString();
         window.history.pushState({}, '', modifiedUrl);
-        location.reload();
+        //location.reload();
     };
     squareCountsData = csv;
 

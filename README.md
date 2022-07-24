@@ -4,10 +4,6 @@ Analyzing 4-player chess games played on chess.com
 ### Data collection and preparation
 Chess_Data_Collection.ipynb: Python file which web scrapes chess.com game data (single game) and computes other variables: moves, points over time, piece moved, material strength over time, etc
 
-### Data Visualization Folders
-
-viz: Contains HTML, CSS, & JavaScript to create an interactive dashboard of charts
-
 ### JavaScript 
 script.js: Defines constant variables - such as chart dimensions - which the other script files use; calls functions defined in other script files
 
