@@ -4,7 +4,7 @@ body {
     font-size: 16px;  
     margin: 0;  
     padding: 0;
-    background-color: #eeeeee;
+    background-color: white;
     font-family: Georgia, arial, sans-serif;
 }
 
@@ -15,7 +15,7 @@ a:hover {text-decoration: underline; background-color: #98ffff;}
 /* The navigation bar */
 .navbar {
     overflow: hidden;
-    background-color: whitesmoke;
+    background-color: #0e005e;
     top: 0; /* Position the navbar at the top of the page */
     width: 100%; /* Full width */
     z-index: 999;
@@ -28,7 +28,7 @@ a:hover {text-decoration: underline; background-color: #98ffff;}
 /* Links inside the navbar */
 .navbar a {
     display: block;
-    color: #0e005e;
+    color: white;
     text-align: center;
     padding: 7px;
     text-decoration: none;
@@ -39,8 +39,8 @@ a:hover {text-decoration: underline; background-color: #98ffff;}
   
 /* Change background on mouse-over */
 .navbar a:hover {
-background: white;
-color: #0e005e;
+    background: white;
+    color: #0e005e;
 }
 
 p { font-size: 20px;}
@@ -170,14 +170,8 @@ path{
 /* ************************** */
 
 /* Points Timeplot and Pieces Scatterplot CSS */
-
-/* svg.dark_svg{
-    background-color: #cccccc;
-} */
 .curtain{
-    /* fill:#d1d1f6; */
-    fill: #eeeeee;
-
+    fill: white;
 }
 
 .redline {
@@ -344,6 +338,9 @@ select{
     background-color: white;
     width: 16vw;
     min-height: 100px;
+}
+.capturedSection h4 {
+    font-weight: normal;
 }
 
 .captured_img{
