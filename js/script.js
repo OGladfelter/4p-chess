@@ -75,14 +75,8 @@ d3.csv("data/" + game_id + "/moves.csv", function(csv) {
 
 // wait a second before calling animate(), since other js files are called after this one
 setTimeout(() => {  
-    console.log("Commence animation"); 
     animate(500, 500); 
 }, 1000);
-
-// after 2 seconds from page load, close nav menu
-// setTimeout(() => {  
-//     closeNav(); 
-// }, 2000);
 
 ///////////////// functions ///////////////////////////////////////
 
