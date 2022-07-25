@@ -229,7 +229,7 @@ line{
 /* collapsible */
 
 .sidebar {
-    width: 15%;
+    width: 10%;
     position: sticky;
     z-index: 1;
     top: 5px;
@@ -243,29 +243,11 @@ line{
     padding: 10px;
 }
   
-/* close menu button */
-.sidebar a {
-    padding: 8px 8px 8px 32px;
-    text-decoration: none;
-    font-size: 25px;
-    color: black;
-    display: block;
-    transition: 0.3s;
-}
-.sidebar a:hover {
-    color: gray;
-}
-.sidebar .closebtn {
-    position: absolute;
-    top: 0;
-    right: 5px;
-    font-size: 36px;
-}
-
 .content_holder {
     width: 100%;
     text-align: center;
-    margin: 10px;
+    margin-top: 5px;
+    margin-bottom: 5px;
 }
 
 .openbtn {

@@ -186,47 +186,6 @@ function drawHeatmap(){
     
     }; // close for loop
 
-    // Features of the annotation
-    var annotations = [
-        {
-        note: {
-            label: "Hover to see counts by player",
-            align: "middle",
-            padding: 5
-        },
-        connector: {
-            end: "arrow",
-            type: "curve",       // Line or curve
-            points: 1,           // Number of break in the curve
-            lineType : "vertical"
-          },
-        color: ["black"],
-        x: x(data[0].destination[0]) + 7,
-        y: y(data[0].destination[1]) + 7,
-        className: "show-bg",
-        nx: x("d") - 5,
-        ny: y(2) - 10
-        }
-    ]
-
-    // Add annotation to the chart
-    var makeAnnotations = d3.annotation().type(d3.annotationLabel)
-        .annotations(annotations)
-    svg_heatmap
-        .call(makeAnnotations)
-
-    var bbox = document.querySelector(".annotation-note").getBBox();
-
-    d3.select(".annotation-note")
-        .append('rect')
-        .attr("class", "annotationBackground")
-        .attr("x", bbox.x-padding)
-        .attr("y", bbox.y - padding)
-        .attr("width", bbox.width + padding + padding)
-        .attr("height", bbox.height + padding + padding);
-    d3.select(".annotation-note-content").raise();
-    
-
     animateHeatmap = function(duration, delay){
 
         // reset color and labels
@@ -237,13 +196,6 @@ function drawHeatmap(){
         // start with blank slates
         squareCounts = {};
         playerSquareCounts = {"red":{}, "blue":{}, "yellow":{}, "green":{}};
-
-        // fade out after 6 seconds
-        d3.select(".annotations")
-            .transition()
-            .duration(2000)
-            .delay(6000)
-            .style("opacity", 0)
 
         for (i=0; i<data.length; i++){
 
