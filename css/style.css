@@ -23,6 +23,7 @@ a:hover {text-decoration: underline; background-color: #98ffff;}
     border-width: 0px;
     border-bottom-width: 2px;
     border-bottom-color: #0e005e;
+    /* position:fixed; */
 }
 
 /* Links inside the navbar */
@@ -228,18 +229,18 @@ line{
 /* collapsible */
 
 .sidebar {
-    height: 20%;
     width: 15%;
-    position: fixed;
+    position: sticky;
     z-index: 1;
-    top: 42.5%;
-    left: 0;
-    background-color: white;
+    top: 5px;
+    left: 5px;
+    background-color: whitesmoke;
     overflow-x: hidden;
     transition: 0.5s;
     padding-top: 20px;
     vertical-align: top;
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    padding: 10px;
 }
   
 /* close menu button */
@@ -262,15 +263,9 @@ line{
 }
 
 .content_holder {
-    height: 33%;
     width: 100%;
-    display: table;
-    vertical-align: middle;
-}
-.sidebar_content{
-    display: table-cell;
-    vertical-align: middle;
-    /* border: 1px solid black; */
+    text-align: center;
+    margin: 10px;
 }
 
 .openbtn {
@@ -298,14 +293,10 @@ line{
     margin-left: 5px;
     margin-right: 5px;
     color: black;
-    background-color: lightcyan;
+    background-color: white;
     border: 1px solid black;
     border-radius: 5px;
     cursor: pointer;
-    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
-}
-.replayButton:hover{
-    background-color: rgb(240, 250, 250);
 }
 
 input{

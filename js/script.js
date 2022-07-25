@@ -80,9 +80,9 @@ setTimeout(() => {
 }, 1000);
 
 // after 2 seconds from page load, close nav menu
-setTimeout(() => {  
-    closeNav(); 
-}, 2000);
+// setTimeout(() => {  
+//     closeNav(); 
+// }, 2000);
 
 ///////////////// functions ///////////////////////////////////////
 
@@ -98,10 +98,6 @@ function animate(duration, delay){
         var maxHeight = getMaxHeight('.capturedSection');
         setHeight('.capturedSection', maxHeight); 
     }
-
-    setTimeout(() => {  
-        openNav();
-    }, 500 * data.length);
 };
 
 // this param is optional. if replay() is run without parameter, it will use slider value.
@@ -111,9 +107,9 @@ function replay(speed){
     d3.selectAll("*").interrupt();
 
     // close nav menu after a second
-    setTimeout(() => {  
-        closeNav();
-    }, 3000);
+    // setTimeout(() => {  
+    //     closeNav();
+    // }, 3000);
 
     // if no param, then use slider value. Otherwise, use what's given.
     if (arguments.length == 0){
@@ -133,11 +129,6 @@ function replay(speed){
     
     // now we can animate!
     animate(speed, speed);
-
-    // reopen nav menu
-    setTimeout(() => {  
-        openNav();
-    }, speed * data.length);
 }
 
 function newGame(game_id){
@@ -174,21 +165,6 @@ function newGame(game_id){
         var modifiedUrl = url.toString();
         window.history.pushState({}, '', modifiedUrl);
     });
-}
-
-
-// functions for the side bar //////////////////////////
-function openNav() {
-    if (screen.width < 600){
-        document.getElementById("mySidebar").style.width = "65%";
-    }
-    else{
-       document.getElementById("mySidebar").style.width = "15%"; 
-    }
-}
-  
-  function closeNav() {
-    document.getElementById("mySidebar").style.width = "0";
 }
 
 // messing with height in 'Who Captured Whom?' chart

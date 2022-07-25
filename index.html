@@ -63,37 +63,26 @@
     <h3>By <a href="https://cultureplot.com/about" target="_blank" class="bylineLink">Oliver Gladfelter</a></h3>
 
     <div id="mySidebar" class="sidebar">
-        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">×</a>
         <div class="content_holder">
-            <div class="sidebar_content">
-                <button class="replayButton" onclick="replay()">Replay &#8635;</button>
-                <button class="replayButton" onclick="replay(10)">Skip &#x23e9;</button>
-            </div>
+            <button class="replayButton" onclick="replay()">Replay</button>
+            <button class="replayButton" onclick="replay(10)">Skip</button>
         </div>
         <div class="content_holder">
-            <div class="sidebar_content">
-                <label for="slider">Speed:</label>
-                <input type="range" id="slider" min="6" max="20" value="16" step="1">
-            </div>
+            <label for="slider">Speed:</label>
+            <input type="range" id="slider" min="6" max="20" value="16" step="1">
         </div>
         <div class="content_holder">
-            <div class="sidebar_content">
-                <label for="other_games">See another game:</label>
-                <select id="gameSelect" name="other_games" onchange="newGame(this.value)">
-                    <option value="6593805">6593805</option>
-                    <option value="6593774">6593774</option>
-                    <option value="6540501">6540501</option>
-                    <option value="6546999">6546999</option>
-                    <option value="6479062">6479062</option>
-                    <option value="6596073">6596073</option>
-                </select>
-            </div>
+            <label for="other_games">See another game:</label>
+            <select id="gameSelect" name="other_games" onchange="newGame(this.value)">
+                <option value="6593805">6593805</option>
+                <option value="6593774">6593774</option>
+                <option value="6540501">6540501</option>
+                <option value="6546999">6546999</option>
+                <option value="6479062">6479062</option>
+                <option value="6596073">6596073</option>
+            </select>
         </div>
     </div>
-      
-      <div id="main">
-        <button class="openbtn" onclick="openNav()">&#8594;</button>  
-      </div>
 
     <div class="container">
         <div class="box" id="replica"></div>
@@ -130,8 +119,8 @@
 
     <!-- words words words -->
     <article style="margin-bottom: 200px;">
-        <p>In case you’re confused, allow me to explain. 4-Player Chess is exactly what it sounds like: four players each command their own pieces, but share a single board as they compete to come out on top. If just watching a game play out above was overwhelming, you’re not alone: with a board consisting of 160 tiles and 48 enemy pieces, it can be tough to keep track of everything.</p>
-        <p>Although I’ve owned a 4-player board for nearly a decade, I just recently discovered you can play the variant on chess.com. Playing the online version put me right back in college, when my friends and I could squander hours on a single game, spending more time negotiating deals and betraying peace-treaties than moving the actual pieces. Although I’m nostalgic for those in-person games (happy one year of COVID, everyone), chess.com does offer something my wooden board doesn’t: the website <a href="https://www.chess.com/4-player-chess?t=archive&p=Cha_ChaRealSmooth&gameType=ffa&daysBack=30-92" target="_blank">archives every game played</a>. Meaning the players’ scores, the moves played, even the chatbox bickering are saved to immorality the moment a game concludes.</p>
+        <p>4-Player Chess is exactly what it sounds like: four players each command their own pieces, but share a single board as they compete to come out on top. If just watching a game play out above was overwhelming, you’re not alone: with a board consisting of 160 tiles and 48 enemy pieces, it can be tough to keep track of everything.</p>
+        <p>Although I've owned a 4-player board for nearly a decade, I just recently discovered you can play the variant on chess.com. Playing the online version put me right back in college, when my friends and I could squander hours on a single game, spending more time negotiating deals and betraying peace-treaties than moving the actual pieces. Although I'm nostalgic for those in-person games, playing online has one advantage: the website <a href="https://www.chess.com/4-player-chess?t=archive&p=Cha_ChaRealSmooth&gameType=ffa&daysBack=30-92" target="_blank">archives every game played</a>. Meaning the players’ scores, the moves played, and even the chatbox bickering are saved to immorality the moment a game concludes.</p>
         <p>These data can be leveraged to answer some questions my friends and I ponder about during our standoffs. For example, in 2-player chess, controlling the center of the board is often critical to victory. In 4-player chess, by contrast, the center feels more like a scary place your pieces wander into if they have a death wish. So where on the board do pieces visit most often, if not the center?</p>
         <p>There are of course plenty more curiosities: at what point in a game do players earn the most amount of points? What pays off more: risk-taking or risk-avoiding? Is pawn-pushing actually worth it? Because most games vary wildly in how they play out, I’ve decided not to answer these questions holistically, and analyze individual games instead (this also saves me from a possible ban from chess.com, as excessively running my web scraping scripts could strain their servers).</p>
         <p class="sectionTitle">So, what can we say about this game?</p>
