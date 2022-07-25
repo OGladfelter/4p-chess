@@ -12,7 +12,7 @@
         </script>
                 
         <meta charset="utf-8">
-        <title>4-Player Chess In Five Charts</title>
+        <title>4-Player Chess In Four Charts</title>
     
         <!-- Favicons -->
         <link rel="apple-touch-icon" sizes="180x180" href="../favicon/apple-touch-icon.png">
@@ -23,7 +23,7 @@
         <!-- Facebook Opengraph -->
         <meta property="og:url" content="http://cultureplot.com/chess/" />
         <meta property="og:type" content="website" />
-        <meta property="og:title" content="4-Player Chess In Five Charts" />
+        <meta property="og:title" content="4-Player Chess In Four Charts" />
         <meta property="og:description" content="A 4-Player Chess Analytics Dashboard"/>
     
         <meta property="og:image" content="https://cultureplot.com/img/chess_preview.png" />
@@ -42,14 +42,10 @@
 
         <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Open+Sans" />
 
-        <link rel="stylesheet" href="css/style.css">
+        <link rel="stylesheet" href="css/style.css?v=2">
 
         <!-- Load d3.js -->
         <script src="https://d3js.org/d3.v4.js"></script>
-
-        <!-- Load d3-annotation -->
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/d3-annotation/2.5.1/d3-annotation.min.js"></script>
-
 </head>
 
 <body>
@@ -58,73 +54,74 @@
         <a href="https://cultureplot.com">Cultureplot</a>
     </div>
 
-    <h1 style="margin-top: 75px">4-Player Chess In Five Charts</h1>
-    <!-- <h2>Subtitle</h2> -->
-    <h3>By <a href="https://cultureplot.com/about" target="_blank" class="bylineLink">Oliver Gladfelter</a></h3>
-
     <div id="mySidebar" class="sidebar">
-        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">×</a>
         <div class="content_holder">
-            <div class="sidebar_content">
-                <button class="replayButton" onclick="replay()">Replay &#8635;</button>
-                <button class="replayButton" onclick="replay(10)">Skip &#x23e9;</button>
-            </div>
+            <button class="replayButton" onclick="replay()">Replay</button>
+            <button class="replayButton" onclick="replay(10)">Skip</button>
         </div>
         <div class="content_holder">
-            <div class="sidebar_content">
-                <label for="slider">Speed:</label>
-                <input type="range" id="slider" min="6" max="20" value="16" step="1">
-            </div>
+            <label for="slider">Speed:</label>
+            <input type="range" id="slider" min="6" max="20" value="16" step="1">
         </div>
         <div class="content_holder">
-            <div class="sidebar_content">
-                <label for="other_games">See another game:</label>
-                <select id="gameSelect" name="other_games" onchange="newGame(this.value)">
-                    <option value="6593805">6593805</option>
-                    <option value="6593774">6593774</option>
-                    <option value="6540501">6540501</option>
-                    <option value="6546999">6546999</option>
-                    <option value="6479062">6479062</option>
-                    <option value="6596073">6596073</option>
-                </select>
-            </div>
+            <label for="other_games">See another game:</label>
+            <select id="gameSelect" name="other_games" onchange="newGame(this.value)">
+                <option value="6593805">Game #1</option>
+                <option value="6593774">Game #2</option>
+                <option value="6540501">Game #3</option>
+                <option value="6546999">Game #4</option>
+                <option value="6479062">Game #5</option>
+                <option value="6596073">Game #6</option>
+            </select>
         </div>
     </div>
-      
-      <div id="main">
-        <button class="openbtn" onclick="openNav()">&#8594;</button>  
-      </div>
+
+    <h1>4-Player Chess In Four Charts</h1>
+    <h3>By <a href="https://cultureplot.com/about" target="_blank" class="bylineLink">Oliver Gladfelter</a></h3>
 
     <div class="container">
         <div class="box" id="replica"></div>
         <div class="box" id="heatmap"></div> 
         <div class="half_box" id="lineplot"></div>
-        <div class="half_box" id="scatterplot"></div> 
+        <div class="half_box" id="scatterplot"></div>
+        <div class="half_box">
+            <article style="width:90%; margin-top:10px;">
+                The player with the highest score at the end of the game wins. Delivering a checkmate is worth 20 points.
+            </article>
+        </div> 
+        <div class="half_box">
+            <article style="width:90%; margin-top:10px;">
+                Players in the upper-right area of the chart have stronger armies; players in the lower-left area have weaker armies.
+            </article>
+        </div>
     </div>
 
-
     <div class="capturedContainer">
-        <h3>Who Captured Whom?</h3>
+        <h3>Piece Captures</h3>
         <div id="redCaptures" class="capturedSection">
-            <h4>Red</h4>
+            <h4>Red captured...</h4>
         </div>
         <div id="blueCaptures" class="capturedSection">
-            <h4>Blue</h4>
+            <h4>Blue captured...</h4>
         </div>
         <div id="yellowCaptures" class="capturedSection">
-            <h4>Yellow</h4>
+            <h4>Yellow captured...</h4>
         </div>
         <div id="greenCaptures" class="capturedSection">
-            <h4>Green</h4>
+            <h4>Green captured...</h4>
         </div>
     </div>
 
     <!-- words words words -->
     <article style="margin-bottom: 200px;">
-        <p>In case you’re confused, allow me to explain. 4-Player Chess is exactly what it sounds like: four players each command their own pieces, but share a single board as they compete to come out on top. If just watching a game play out above was overwhelming, you’re not alone: with a board consisting of 160 tiles and 48 enemy pieces, it can be tough to keep track of everything.</p>
-        <p>Although I’ve owned a 4-player board for nearly a decade, I just recently discovered you can play the variant on chess.com. Playing the online version put me right back in college, when my friends and I could squander hours on a single game, spending more time negotiating deals and betraying peace-treaties than moving the actual pieces. Although I’m nostalgic for those in-person games (happy one year of COVID, everyone), chess.com does offer something my wooden board doesn’t: the website <a href="https://www.chess.com/4-player-chess?t=archive&p=Cha_ChaRealSmooth&gameType=ffa&daysBack=30-92" target="_blank">archives every game played</a>. Meaning the players’ scores, the moves played, even the chatbox bickering are saved to immorality the moment a game concludes.</p>
-        <p>These data can be leveraged to answer some questions my friends and I ponder about during our standoffs. For example, in 2-player chess, controlling the center of the board is often critical to victory. In 4-player chess, by contrast, the center feels more like a scary place your pieces wander into if they have a death wish. So where on the board do pieces visit most often, if not the center?</p>
-        <p>There are of course plenty more curiosities: at what point in a game do players earn the most amount of points? What pays off more: risk-taking or risk-avoiding? Is pawn-pushing actually worth it? Because most games vary wildly in how they play out, I’ve decided not to answer these questions holistically, and analyze individual games instead (this also saves me from a possible ban from chess.com, as excessively running my web scraping scripts could strain their servers).</p>
+        <p>In 4-Player Chess, each player commands their own pieces, but share a single board as they compete for points.<a href="#footnotes"><sup>1</sup></a> Back in the day, my friends and I could squander hours on a single game, often spending more time negotiating deals and betraying armistices than actually moving the pieces.</p>
+        <figure>
+            <img src="img/chess.jpeg" alt="Playing 4 Player Chess" style="width:100%">
+            <figcaption style="color:charcoal;">Maintaining a balance of power is a common strategy in multi-player chess. Establishing a dominant position too early in the game motivates your opponents to form an alliance against you.</figcaption>
+        </figure>
+        <p>Despite owning a 4-player board for nearly a decade, I just recently discovered the variant is also available on chess.com. Although it's less charming, playing online does have one advantage: the website <a href="https://www.chess.com/4-player-chess?t=archive&p=Cha_ChaRealSmooth&gameType=ffa&daysBack=30-92" target="_blank">archives every game played</a>, immortalizing these games' scores and moves for future analysis.</p>
+        <p>These records can be leveraged to settle debates my friends and I have had about the game for years. For example, in 2-player chess, controlling the center of the board is often critical to victory. In 4-player chess, by contrast, the center feels like an awfully dangerous place for your pieces to be hanging around. So with a board of 160 tiles, where should you send your pieces, if not the center?</p>
+        <p>There are plenty of questions we can use the chess.com database to answer: at what point in a game do players earn the most points? Is risk-taking or risk-avoiding the better strategy? Is pawn-pushing actually worth it? Because most games vary wildly, I've opted to analyze a small sample of individual games, rather than trying to answer these questions holistically (this also saves me from a possible ban from chess.com, as excessively running my web scraping scripts could strain their servers).</p>
         <p class="sectionTitle">So, what can we say about this game?</p>
         <p class="section">Points & Score</p>
         <p id="points" class="dynamicText"></p>
@@ -167,17 +164,18 @@
             </tr>
           </table>
         <p class="sectionTitle">Methodology</p>
-        <p>In 4-Player chess, each player is assigned a color. The move order is: red first, followed by blue, yellow, then green. Although players can be eliminated from play via checkmates or running out of time, the game objective is to finish the game with the most amount of points; therefore it is possible to win even without being the last player remaining. Points are awarded by capturing enemy pieces: 9 points for queens, 5 points for bishops and rooks, 3 for knights, 1 for pawns, and 1 for pawns which promote to queens. Checkmating an enemy king awards 20 points. Finally, delivering a check to multiple kings at once awards 1 point if the check is delivered using a queen, 5 points if delivered by any other piece.</p>
         <p>All data come from web scraping chess.com using Python and Selenium. I opted to collect data only from the ‘Free For All’ gamemode, although chess.com also offers ‘Solo’ and ‘Teams’ as additional modes of 4-player chess. Moreover, I did not collect data from any of my personal games. Other than those two caveats, I handpicked the small sample of games pseudorandomly.</p>
-        <p>In chess, a player’s “material” refers to their pieces while “Material Strength” refers to how strong their pieces as a collective are. I measured Material Strength as each queen worth 9, each bishop and rook worth 5, each knight worth 3, and each pawn worth 1. These values borrow from each piece’s point value awarded when captured; the one exception is I still consider 1-point queens (former pawns) to be equal as original queens in contributing towards Material Strength. I ignored kings in the measurement because they are always present and aren’t typically used in tactical aggression.</p>
+        <p>In chess, a player’s “material” refers to their pieces while “Material Strength” refers to how strong their pieces as a collective are. I measured Material Strength using the piece point values: each queen worth 9, each bishop and rook worth 5, each knight worth 3, and each pawn worth 1. Although pawns promote to queens worth 1 point for capturing, I still consider them to be equal as a 9-point queens when measuring Material Strength. I ignored kings in the measurement because they are always present and aren’t typically used in tactical aggression.</p>
         <p>All metrics were measured at every game move. Game moves as a unit of analysis is preferable over game rounds, because most of the metrics can change multiple times within a round. For example, if three players all capture a fourth players’ pieces in immediate succession, then that fourth player's Material Strength would drop three moves in a row - a finding collecting data at the round level would obscure.</p>
+        <p class="sectionTitle" id="footnotes">Footnotes</p>
+        <p>[1] There are of course other differences between standard and multi-player chess. The move order of 4-Player Chess is: red first, followed by blue, yellow, then green. Although players can be eliminated from play via checkmates or running out of time, the game objective is to finish the game with the most amount of points; therefore it is possible to win even without being the last player remaining. Points are awarded by capturing enemy pieces: 9 points for queens, 5 points for bishops and rooks, 3 for knights, 1 for pawns, and 1 for pawns which promote to queens. Checkmating an enemy king awards 20 points. Finally, delivering a check to multiple kings at once awards 1 point if the check is delivered using a queen, 5 points if delivered by any other piece.</p>
     </article>
 
     
 
-    <script src="js/script.js"></script>
-    <script src="js/heatmap.js"></script>
-    <script src="js/points_timeplot.js"></script>
+    <script src="js/script.js?v=2"></script>
+    <script src="js/heatmap.js?v=2"></script>
+    <script src="js/points_timeplot.js?v=2"></script>
     <script src="js/pieces_scatterplot.js"></script>
     <script src="js/replica.js"></script>
     <script src="js/prose.js"></script>

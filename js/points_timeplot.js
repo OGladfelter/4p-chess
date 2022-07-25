@@ -111,7 +111,7 @@ function drawTimeplot(){
     timeplot_svg.append("text")
     .attr("x", x(0))
     .attr("y", y(maxPoints)+ (padding * 3))
-    .text("Points")
+    .text("Score")
     .attr("class", "axis_label")
     .style("text-anchor", "start");
 

@@ -4,7 +4,7 @@ body {
     font-size: 16px;  
     margin: 0;  
     padding: 0;
-    background-color: #eeeeee;
+    background-color: white;
     font-family: Georgia, arial, sans-serif;
 }
 
@@ -15,7 +15,7 @@ a:hover {text-decoration: underline; background-color: #98ffff;}
 /* The navigation bar */
 .navbar {
     overflow: hidden;
-    background-color: whitesmoke;
+    background-color: #0e005e;
     top: 0; /* Position the navbar at the top of the page */
     width: 100%; /* Full width */
     z-index: 999;
@@ -23,12 +23,13 @@ a:hover {text-decoration: underline; background-color: #98ffff;}
     border-width: 0px;
     border-bottom-width: 2px;
     border-bottom-color: #0e005e;
+    /* position:fixed; */
 }
 
 /* Links inside the navbar */
 .navbar a {
     display: block;
-    color: #0e005e;
+    color: white;
     text-align: center;
     padding: 7px;
     text-decoration: none;
@@ -39,8 +40,16 @@ a:hover {text-decoration: underline; background-color: #98ffff;}
   
 /* Change background on mouse-over */
 .navbar a:hover {
-background: white;
-color: #0e005e;
+    background: white;
+    color: #0e005e;
+}
+
+sup {
+    height: 0; 
+    line-height: 1; 
+    position: relative; 
+    vertical-align: baseline; 
+    bottom:1ex;
 }
 
 p { font-size: 20px;}
@@ -170,14 +179,8 @@ path{
 /* ************************** */
 
 /* Points Timeplot and Pieces Scatterplot CSS */
-
-/* svg.dark_svg{
-    background-color: #cccccc;
-} */
 .curtain{
-    /* fill:#d1d1f6; */
-    fill: #eeeeee;
-
+    fill: white;
 }
 
 .redline {
@@ -234,49 +237,25 @@ line{
 /* collapsible */
 
 .sidebar {
-    height: 20%;
-    width: 15%;
-    position: fixed;
+    width: 10%;
+    position: sticky;
     z-index: 1;
-    top: 42.5%;
-    left: 0;
-    background-color: white;
+    top: 5px;
+    left: 5px;
+    background-color: whitesmoke;
     overflow-x: hidden;
     transition: 0.5s;
     padding-top: 20px;
     vertical-align: top;
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    padding: 10px;
 }
   
-/* close menu button */
-.sidebar a {
-    padding: 8px 8px 8px 32px;
-    text-decoration: none;
-    font-size: 25px;
-    color: black;
-    display: block;
-    transition: 0.3s;
-}
-.sidebar a:hover {
-    color: gray;
-}
-.sidebar .closebtn {
-    position: absolute;
-    top: 0;
-    right: 5px;
-    font-size: 36px;
-}
-
 .content_holder {
-    height: 33%;
     width: 100%;
-    display: table;
-    vertical-align: middle;
-}
-.sidebar_content{
-    display: table-cell;
-    vertical-align: middle;
-    /* border: 1px solid black; */
+    text-align: center;
+    margin-top: 5px;
+    margin-bottom: 5px;
 }
 
 .openbtn {
@@ -304,14 +283,10 @@ line{
     margin-left: 5px;
     margin-right: 5px;
     color: black;
-    background-color: lightcyan;
+    background-color: white;
     border: 1px solid black;
     border-radius: 5px;
     cursor: pointer;
-    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
-}
-.replayButton:hover{
-    background-color: rgb(240, 250, 250);
 }
 
 input{
@@ -341,9 +316,12 @@ select{
     top: 0;
     display: inline-block;
     border: 1px black solid;
-    background-color: white;
+    background-color: rgba(245, 245, 245, 0.5);
     width: 16vw;
     min-height: 100px;
+}
+.capturedSection h4 {
+    font-weight: normal;
 }
 
 .captured_img{
