@@ -100,11 +100,6 @@ function replay(speed){
     // cancel all current transitions
     d3.selectAll("*").interrupt();
 
-    // close nav menu after a second
-    // setTimeout(() => {  
-    //     closeNav();
-    // }, 3000);
-
     // if no param, then use slider value. Otherwise, use what's given.
     if (arguments.length == 0){
             // calc speed at which to play, determined by slider and a formula
