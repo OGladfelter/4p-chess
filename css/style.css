@@ -308,7 +308,7 @@ select{
     top: 0;
     display: inline-block;
     border: 1px black solid;
-    background-color: white;
+    background-color: rgba(245, 245, 245, 0.5);
     width: 16vw;
     min-height: 100px;
 }
